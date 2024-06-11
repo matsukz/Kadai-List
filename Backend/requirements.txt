@@ -1,0 +1,8 @@
+requests
+uvicorn
+fastapi
+pydantic
+sqlalchemy
+databases
+mysqlclient
+aiomysql
