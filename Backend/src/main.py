@@ -9,7 +9,16 @@ from createkadai_model import KadaiCreate
 
 from datetime import datetime
 
-app = FastAPI()
+description = """
+  MySQLと連携してタスク管理をするAPIです。\n
+  FastAPIの練習も兼ねて作りました。RESTっぽくなってると思います。\n
+  Githubのリポジトリは[こちら](https://github.com/matsukz/Kadai-List)
+  """
+
+app = FastAPI(
+  title = "課題管理API - FastAPI",
+  description=description
+)
 
 #CORSエラー対策
 app.add_middleware(
@@ -29,16 +38,13 @@ async def startup():
 @app.on_event("shutdown")
 async def shutdown():
   pass
-@app.get("/")
-def read_root():
-  return {"Hello": "World"}
 
-@app.get("/api/kadai/")
+@app.get("/api/kadai/", tags=["APIエンドポイント"], summary="すべての課題を取得します")
 async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
 
-@app.get("/api/kadai/{id}")
+@app.get("/api/kadai/{id}", tags=["APIエンドポイント"], summary="IDに応じた課題を取得します")
 async def kadai_get_id(id, db: Session=Depends(get_db)):
 
   kadai = db.query(Kadai).filter(Kadai.id == id).all()
@@ -47,9 +53,9 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
   else:
     return kadai
 
-@app.post("/api/kadai/", response_model=KadaiCreate)
+@app.post("/api/kadai/", response_model=KadaiCreate, tags=["APIエンドポイント"], summary="課題を新規作成します")
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
-
+  """日付は YYYY-MM-DDの形です!"""
   #kadai_model参照
   create_kadai = Kadai(
     #idはオートインクリメント
@@ -68,7 +74,7 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(create_kadai) #再読み込み
   return create_kadai
 
-@app.put("/api/kadai/{id}", response_model=KadaiCreate)
+@app.put("/api/kadai/{id}", response_model=KadaiCreate,tags=["APIエンドポイント"], summary="IDに応じた課題を編集します")
 async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
 
   kadai_upd = db.query(Kadai).filter(Kadai.id == id).first()
@@ -89,7 +95,7 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(kadai_upd)
   return kadai_upd
 
-@app.delete("/api/kadai/{id}", response_model=dict)
+@app.delete("/api/kadai/{id}", response_model=dict, tags=["APIエンドポイント"], summary="IDに応じた課題を削除します")
 def kadai_delete(id: int, db: Session=Depends(get_db)):
 
   kadai_del = db.query(Kadai).filter(Kadai.id == id).first()
