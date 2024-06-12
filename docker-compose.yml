@@ -11,6 +11,8 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 9004
     environment:
       - TZ=Asia/Tokyo
+    depends_on:
+      - mysql
 
   php:
     container_name: kadai_php
@@ -22,16 +24,18 @@ services:
       - ./Frontend/php.ini:/usr/local/etc/php/php.ini
     environment:
       - TZ=Asia/Tokyo
-  
+    depends_on:
+      - mysql
+
   mysql:
       image: mysql:8.0
       container_name: kadai_mysql
       restart: always
       volumes:
       - ./mysql/data:/var/lib/mysql
-#      - ./mysql/scripts:/docker-entrypoint-initdb.d
-      ports:
-      - 3306:3306
+      - ./mysql/scripts:/docker-entrypoint-initdb.d
+      expose:
+      - 3306
       environment:
         - MYSQL_DATABASE=kadai
         - MYSQL_USER=user
@@ -52,6 +56,7 @@ services:
       - 8081:80
     depends_on:
       - mysql
+
   # cloudflared:
   #   image: cloudflare/cloudflared
   #   container_name: kadai_cloudflared
