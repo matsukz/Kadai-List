@@ -67,3 +67,24 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   db.commit() #確定
   db.refresh(create_kadai) #再読み込み
   return create_kadai
+
+@app.put("/kadai/update/{id}", response_model=KadaiCreate)
+async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
+
+  kadai_upd = db.query(Kadai).filter(Kadai.id == id).first()
+
+  if kadai_upd is None:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+  
+  kadai.register_date = kadai.register_date,
+  kadai.start_date = kadai.start_date,
+  kadai.limit_date = kadai.limit_date,
+  kadai.group = kadai.group,
+  kadai.title = kadai.title,
+  kadai.content = kadai.content,
+  kadai.note = kadai.note,
+  kadai.status = kadai.status
+
+  db.commit()
+  db.refresh(kadai_upd)
+  return kadai_upd
