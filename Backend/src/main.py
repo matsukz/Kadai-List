@@ -1,6 +1,8 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends,  HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+
 from connect_db import engine, get_db
 from kadai_model import Kadai
 
@@ -28,7 +30,16 @@ async def shutdown():
 def read_root():
   return {"Hello": "World"}
 
-@app.get("/kadai/getall/")
+@app.get("/kadai/get/")
 async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
+
+@app.get("/kadai/get/{id}")
+async def kadai_get_id(id, db: Session=Depends(get_db)):
+
+  kadai = db.query(Kadai).filter(Kadai.id == id).all()
+  if kadai == []:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+  else:
+    return kadai
