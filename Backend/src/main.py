@@ -88,3 +88,18 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.commit()
   db.refresh(kadai_upd)
   return kadai_upd
+
+@app.delete("/kadai/delete/{id}", response_model=dict)
+def kadai_delete(id: int, db: Session=Depends(get_db)):
+
+  kadai_del = db.query(Kadai).filter(Kadai.id == id).first()
+
+  if kadai_del is None:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+
+  #削除
+  db.delete(kadai_del)
+  #確定
+  db.commit()
+  msg = f"User:{id} deleted successfully"
+  return {"message": msg}
