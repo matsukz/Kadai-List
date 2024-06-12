@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, sessionmaker
-from connect_db import engine, database, get_db
+from connect_db import engine, get_db
 from kadai_model import Kadai
 
 app = FastAPI()
@@ -15,18 +15,15 @@ app.add_middleware(
     allow_headers=["*"]       # 追記により追加
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-#起動時にDBと接続
+#起動時
 @app.on_event("startup")
 async def startup():
-  await database.connect()
+  pass
 
-#終了時にDBから切断
+#終了時
 @app.on_event("shutdown")
 async def shutdown():
-  await database.disconnect()
-
+  pass
 @app.get("/")
 def read_root():
   return {"Hello": "World"}
