@@ -5,6 +5,9 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 from connect_db import engine, get_db
 from kadai_model import Kadai
+from createkadai_model import KadaiCreate
+
+from datetime import datetime
 
 app = FastAPI()
 
@@ -43,3 +46,25 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
     raise HTTPException(status_code=404, detail="Kadai not found")
   else:
     return kadai
+
+@app.post("/kadai/create/", response_model=KadaiCreate)
+async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
+
+
+  #kadai_model参照
+  create_kadai = Kadai(
+    #idはオートインクリメント
+    register_date = newkadai.register_date,
+    start_date = newkadai.start_date,
+    limit_date = newkadai.limit_date,
+    group = newkadai.group,
+    title = newkadai.title,
+    content = newkadai.content,
+    note = newkadai.note,
+    status = newkadai.status
+  )
+
+  db.add(create_kadai) #DB追加
+  db.commit() #確定
+  db.refresh(create_kadai) #再読み込み
+  return create_kadai
