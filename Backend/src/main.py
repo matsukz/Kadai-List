@@ -50,7 +50,6 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
 @app.post("/kadai/create/", response_model=KadaiCreate)
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
 
-
   #kadai_model参照
   create_kadai = Kadai(
     #idはオートインクリメント
