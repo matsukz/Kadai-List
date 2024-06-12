@@ -76,14 +76,14 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   if kadai_upd is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
   
-  kadai.register_date = kadai.register_date,
-  kadai.start_date = kadai.start_date,
-  kadai.limit_date = kadai.limit_date,
-  kadai.group = kadai.group,
-  kadai.title = kadai.title,
-  kadai.content = kadai.content,
-  kadai.note = kadai.note,
-  kadai.status = kadai.status
+  kadai_upd.register_date = kadai.register_date,
+  kadai_upd.start_date = kadai.start_date,
+  kadai_upd.limit_date = kadai.limit_date,
+  kadai_upd.group = kadai.group,
+  kadai_upd.title = kadai.title,
+  kadai_upd.content = kadai.content,
+  kadai_upd.note = kadai.note,
+  kadai_upd.status = kadai.status
 
   db.commit()
   db.refresh(kadai_upd)
