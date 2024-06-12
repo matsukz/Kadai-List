@@ -33,12 +33,12 @@ async def shutdown():
 def read_root():
   return {"Hello": "World"}
 
-@app.get("/kadai/get/")
+@app.get("/api/kadai/")
 async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
 
-@app.get("/kadai/get/{id}")
+@app.get("/api/kadai/{id}")
 async def kadai_get_id(id, db: Session=Depends(get_db)):
 
   kadai = db.query(Kadai).filter(Kadai.id == id).all()
@@ -47,7 +47,7 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
   else:
     return kadai
 
-@app.post("/kadai/create/", response_model=KadaiCreate)
+@app.post("/api/kadai/", response_model=KadaiCreate)
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
 
   #kadai_model参照
@@ -68,7 +68,7 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(create_kadai) #再読み込み
   return create_kadai
 
-@app.put("/kadai/update/{id}", response_model=KadaiCreate)
+@app.put("/api/kadai/{id}", response_model=KadaiCreate)
 async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
 
   kadai_upd = db.query(Kadai).filter(Kadai.id == id).first()
@@ -89,7 +89,7 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(kadai_upd)
   return kadai_upd
 
-@app.delete("/kadai/delete/{id}", response_model=dict)
+@app.delete("/api/kadai/{id}", response_model=dict)
 def kadai_delete(id: int, db: Session=Depends(get_db)):
 
   kadai_del = db.query(Kadai).filter(Kadai.id == id).first()
