@@ -24,7 +24,9 @@
         $date = new DateTime($limit_date); //期限
         $interval = $today -> diff($date); //差を求める
         $limit_msg = "";
+        $limit_flag = false;
         if($today < $date){
+            $limit_flag = true;
             $limit_msg = "あと".$interval->days."日";          
         } else {
             $limit_msg ="期限切れ";
@@ -77,6 +79,15 @@
                             </tr>
                         </tbody>
                     </table>
+
+                <!-- 操作ボタン -->
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="button" class="btn btn-success">提出済みにする</button>
+                    <button type="button" class="btn btn-warning">課題を編集</button>
+                    <button type="button" class="btn btn-danger">課題を削除</button>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-secondary mt-3">戻る</button>
                 </div>
             </div>
         </div>
