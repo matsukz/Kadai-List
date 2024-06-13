@@ -82,13 +82,21 @@
 
                 <!-- 操作ボタン -->
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="button" class="btn btn-success">提出済みにする</button>
-                    <button type="button" class="btn btn-warning">課題を編集</button>
-                    <button type="button" class="btn btn-danger">課題を削除</button>
+                    <?php
+                        if($limit_flag == true){
+                            //完了済みなら未完了化するボタンにする
+                            echo '<button type="button" class="btn btn-success" id="btn-success">提出済みにする</button>';
+                        } else {
+                            echo '<button type="button" class="btn btn-danger" id="btn-success">未完了にする</button>';
+                        }
+                    ?>
+                    <button type="button" class="btn btn-warning" id="btn-update">課題を編集</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete">課題を削除</button>
                 </div>
                 <div style="display: flex; justify-content: center;">
                     <button type="button" class="btn btn-secondary mt-3">戻る</button>
                 </div>
+
             </div>
         </div>
     </body>
