@@ -25,7 +25,7 @@
         $interval = $today -> diff($date); //差を求める
         $limit_msg = "";
         $limit_flag = false;
-        if($today < $date){
+        if($today > $date){
             $limit_flag = true;
             $limit_msg = "あと".$interval->days."日";          
         } else {
