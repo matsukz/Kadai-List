@@ -18,6 +18,17 @@
         $content = $value["content"];
         $note = $value["note"];
         $status = $value["status"];
+
+        //日数差を取得
+        $today = new DateTime(); //今日の日付
+        $date = new DateTime($limit_date); //期限
+        $interval = $today -> diff($date); //差を求める
+        $limit_msg = "";
+        if($today < $date){
+            $limit_msg = "あと".$interval->days."日";          
+        } else {
+            $limit_msg ="期限切れ";
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -58,7 +69,7 @@
                             </tr>
                             <tr>
                                 <td class="col-4">提出期限</td>
-                                <td class="col-8"><?php echo $limit_date; ?></td>
+                                <td class="col-8"><?php echo $limit_date."（". $limit_msg ."）"; ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">状況</td>
@@ -66,7 +77,6 @@
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
