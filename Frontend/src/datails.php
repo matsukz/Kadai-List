@@ -23,5 +23,17 @@
             }
         ?>
 
+        <div class="container-fluid">
+
+        <div class="col-12">
+
+            <table class="table text-center">
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                    </tr>
+                </tbody>
+
+
     </body>
 </html>
