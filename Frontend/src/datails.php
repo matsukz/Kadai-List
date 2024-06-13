@@ -31,22 +31,22 @@
     </head>
     <body>
         <div class="d-flex justify-content-center">
-            <div class="container p-4">
+            <div class="container mt-3">
                 <?php echo "<h1 class='text-center'>".$title."</h1>"; ?>
 
-                <div class="col-8">
-
-                    <table class="table text-center">
-                        <thead class="table-bordered">
-                        </thead>
+                    <table class="table">
                         <tbody>
                             <tr>
-                                <td>登録ID</td>
-                                <td><?php echo $id; ?></td>
+                                <td class="col-4"">登録ID</td>
+                                <td class="col-8"><?php echo $id; ?></td>
                             </tr>
                             <tr>
-                                <td>登録日</td>
-                                <td><?php echo $register_date; ?></td>
+                                <td class="col-4">登録日</td>
+                                <td class="col-8"><?php echo $register_date; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="col-4">内容</td>
+                                <td class="col-8"><?php echo $content; ?></td>
                             </tr>
                         </tbody>
                     </table>
