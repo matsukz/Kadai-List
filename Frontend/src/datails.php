@@ -94,7 +94,7 @@
                     <button type="button" class="btn btn-danger" id="btn-delete">課題を削除</button>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <button type="button" class="btn btn-secondary mt-3">戻る</button>
+                    <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">戻る</button>
                 </div>
 
             </div>
