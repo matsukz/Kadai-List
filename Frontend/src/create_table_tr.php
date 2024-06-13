@@ -20,8 +20,8 @@
         $date = new DateTime($value["limit_date"]);
         $interval = $today -> diff($date);
         $limit_html = "";
-        if($today > $date){
-            $limit_html ="<td>".$interval->days."日</td>\n";          
+        if($today < $date){
+            $limit_html ="<td>".($interval->days) + 1 ."日</td>\n";          
         } else {
             $limit_html ="<td>期限切れ</td>\n";
         }        
