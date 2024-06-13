@@ -18,8 +18,8 @@
         $content = $value["content"];
         $note = $value["note"];
         $status = $value["status"];
-            }
-        ?>
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,8 +45,24 @@
                                 <td class="col-8"><?php echo $register_date; ?></td>
                             </tr>
                             <tr>
+                                <td class="col-4">登録グループ</td>
+                                <td class="col-8"><?php echo $group; ?></td>
+                            </tr>
+                            <tr>
                                 <td class="col-4">内容</td>
                                 <td class="col-8"><?php echo $content; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="col-4">メモ</td>
+                                <td class="col-8"><?php echo $note; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="col-4">提出期限</td>
+                                <td class="col-8"><?php echo $limit_date; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="col-4">状況</td>
+                                <td class="col-8"><?php if($status==0){echo "未提出";}else{echo "提出済み";} ?></td>
                             </tr>
                         </tbody>
                     </table>
