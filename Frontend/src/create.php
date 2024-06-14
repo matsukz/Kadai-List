@@ -12,7 +12,6 @@
         <div class="d-flex justify-content-center">
             <div class="container mt-3">
                 <form>
-
                     <!-- 課題のタイトル -->
                     <div class="mb-3">
                         <label for="kadai-title-for" class="form-label">タイトル</label>
@@ -52,7 +51,10 @@
                     <!-- 登録日は非公開 -->
                     <input id="kadai-registerday" value=<?php echo (new DateTime())->format("Y-m-d"); ?> hidden>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <!-- 登録ボタン -->
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button type="submit" class="btn btn-primary">登録</button>
+                    </div>
                 </form>
             </div>
         </div>
