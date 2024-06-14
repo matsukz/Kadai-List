@@ -49,6 +49,9 @@
                         <input type="text" class="form-control" id="kadai-memo" maxlength="20">
                     </div>
 
+                    <!-- 登録日は非公開 -->
+                    <input id="kadai-registerday" value=<?php echo (new DateTime())->format("Y-m-d"); ?> hidden>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
