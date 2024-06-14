@@ -34,7 +34,19 @@
                     <!-- 開始日 -->
                     <div class="mb-3">
                         <label for="kadai-start-for" class="form-label">課題開始日</label>
+                        <input type="date" class="form-control" id="kadai-start" value=<?php echo (new DateTime())->format("Y-m-d"); ?>>
+                    </div>
+
+                    <!-- 期限日 -->
+                    <div class="mb-3">
+                        <label for="kadai-start-for" class="form-label">課題開始日</label>
                         <input type="date" class="form-control" id="kadai-start">
+                    </div>
+
+                    <!-- メモ -->
+                    <div class="mb-3">
+                        <label for="kadai-memo-for" class="form-label">メモ</label>
+                        <input type="text" class="form-control" id="kadai-memo" maxlength="20">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
