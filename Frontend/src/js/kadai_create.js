@@ -43,6 +43,26 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     //JSONにする
     const post_content = JSON.stringify(form_content);
 
+    //APIサーバのドメインをセットする
+    var url = new URL(window.location.href);
+    var host = url.hostname;
 
+    //新規登録APIを叩く(本番環境では変える)
+    $.ajax({
+        url: "http://" + host + ":9004/api/kadai/",
+        type: "POST",
+        contentType: "application/json",
+        data: post_content,
+        cache: false
+    }).done(function(response){
+        window.location.href = "success.php";
+    }).fail(function(xhr, status, error){
+        alert("新規登録に失敗しました。\n APIサーバーを確認してください。");
+        console.error('AJAX Error:', status, error);
+    }).always(function(){
+        //いる？
+        $("#Register").prop("disabled", false);
+        $("#Register").text("登録");
+    })
 
 })
