@@ -96,10 +96,10 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(kadai_upd)
   return kadai_upd
 
-@app.put("/api/kadai/process/{id}", response_model=Process, tags=["APIエンドポイント"], summary="IDに応じた課題の完了フラグを変える")
-async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_db)):
+@app.put("/api/kadai/process/", response_model=Process, tags=["APIエンドポイント"], summary="IDに応じた課題の完了フラグを変える")
+async def kadai_process_update(kadai:Process, db: Session=Depends(get_db)):
 
-  kadai_upd_pros = db.query(Kadai).filter(Kadai.id == id).first()
+  kadai_upd_pros = db.query(Kadai).filter(Kadai.id == kadai.id).first()
 
   if kadai_upd_pros is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
