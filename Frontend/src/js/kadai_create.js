@@ -55,7 +55,9 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         data: post_content,
         cache: false
     }).done(function(response){
-        window.location.href = "success.php";
+        alert("登録が完了しました。\n トップページに戻ります。")
+        window.location.href = "index.php";
+        return
     }).fail(function(xhr, status, error){
         alert("新規登録に失敗しました。\n APIサーバーを確認してください。");
         console.error('AJAX Error:', status, error);
