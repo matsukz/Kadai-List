@@ -104,6 +104,11 @@ async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_d
   if kadai_upd_pros is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
   
+  if kadai_upd_pros == 0 or kadai_upd_pros == 1:
+    pass
+  else:
+    raise HTTPException(status_code=400, detail="Unexpected request body.")
+  
   kadai_upd_pros.status = kadai.status
 
   db.commit()
