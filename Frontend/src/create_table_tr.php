@@ -22,6 +22,8 @@
         $limit_html = "";
         if($today < $date){
             $limit_html ="<td>".($interval->days) + 1 ."日</td>\n";          
+        } else if($today = $date){
+            $limit_html = "<td>0日</td>\n";
         } else {
             $limit_html ="<td>期限切れ</td>\n";
         }        
