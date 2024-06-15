@@ -1,15 +1,18 @@
-document.getElementById("btn-update").onclick = function() {
+document.getElementById("btn-success").onclick = function() {
 
     //ボタンのテキストを取得する
-    const button_text = document.getElementById("btn-update").textContent;
+    const button_text = document.getElementById("btn-success").textContent;
 
     //ボタンを操作不可にする
-    $("#btn-update").prop("disabled", true);
+    $("#btn-success").prop("disabled", true);
     //ボタンのテキストを変更する
-    $("#btn-updater").text("処理中...");
+    $("#btn-successr").text("処理中...");
+
+    //id取得
+    const kadai_id = document.getElementById("kadai-id").value;
 
     //ステータスをチェック
-    const status = Number(document.getElementById("kadai-status"));
+    const status = Number(document.getElementById("kadai-status").value);
     
     if(status == 0){
         //ステータスを切り替えフラグ
@@ -19,13 +22,13 @@ document.getElementById("btn-update").onclick = function() {
     } else {
         alert("提出状況が有効ではありません。");
         //ボタンを有効に戻す
-        $("#btn-update").prop("disabled", false);
+        $("#btn-success").prop("disabled", false);
         //ボタンのテキストを変更する
-        $("#btn-updater").text(button_text);
+        $("#btn-successr").text(button_text);
         return
     }
 
-    //送信するjsonデータの用意
+    //送信するjsonデータの用意↓消す
     var status_data = {
         "status": status_flag
     }
@@ -36,10 +39,7 @@ document.getElementById("btn-update").onclick = function() {
     var host = url.hostname;
 
     //状況更新APIを叩く
-    $.ajax({
-        url: "http://" + host + ":9004/api/kadai/progress"
-    })
-
-
-
+    // $.ajax({
+    //     url: "http://" + host + ":9004/api/kadai/progress/" + kadai_id
+    // })
 }
