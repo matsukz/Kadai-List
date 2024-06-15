@@ -51,7 +51,7 @@
                         <tbody>
                             <tr>
                                 <td class="col-4"">登録ID</td>
-                                <td class="col-8" id="kadai-id"><?php echo $id; ?></td>
+                                <td class="col-8"><?php echo $id; ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">登録日</td>
@@ -82,6 +82,7 @@
                     
                     <!-- falseだけHTMLに出力されないの初見殺しすぎる -->
                     <input id="kadai-status" value=<?php echo $status ? "1":"0"; ?> hidden>
+                    <input id="kadai-id" value=<?php echo $id; ?> hidden>
 
                 <!-- 操作ボタン -->
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -102,5 +103,6 @@
 
             </div>
         </div>
+        <script src="js/kadai_status_upd.js"></script>
     </body>
 </html>
