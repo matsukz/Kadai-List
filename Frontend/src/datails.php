@@ -80,7 +80,8 @@
                         </tbody>
                     </table>
                     
-                    <input id="kadai-status" value=<?php echo $status; ?> hidden>
+                    <!-- falseだけHTMLに出力されないの初見殺しすぎる -->
+                    <input id="kadai-status" value=<?php echo $status ? "1":"0"; ?> hidden>
 
                 <!-- 操作ボタン -->
                 <div class="d-grid gap-2 col-6 mx-auto">
