@@ -27,7 +27,7 @@
         $limit_flag = false;
         if($today < $date){
             $limit_flag = true;
-            $limit_msg = "あと".($interval->days) + 1 ."日";          
+            $limit_msg = "あと".($interval->days) + 1 ."日";
         } else {
             $limit_msg ="期限切れ";
         }
@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <td class="col-4">状況</td>
-                                <td class="col-8"><?php if($status==0){echo "未提出";}else{echo "提出済み";} ?></td>
+                                <td class="col-8"><?php if($status){echo "提出済み";}else{echo "未提出";} ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -83,11 +83,11 @@
                 <!-- 操作ボタン -->
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <?php
-                        if($limit_flag == true){
+                        if($status){
                             //完了済みなら未完了化するボタンにする
-                            echo '<button type="button" class="btn btn-success" id="btn-success">提出済みにする</button>';
-                        } else {
                             echo '<button type="button" class="btn btn-danger" id="btn-success">未完了にする</button>';
+                        } else {
+                            echo '<button type="button" class="btn btn-success" id="btn-success">提出済みにする</button>';
                         }
                     ?>
                     <button type="button" class="btn btn-warning" id="btn-update">課題を編集</button>

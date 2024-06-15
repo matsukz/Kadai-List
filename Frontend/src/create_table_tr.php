@@ -22,6 +22,8 @@
         $limit_html = "";
         if($today < $date){
             $limit_html ="<td>".($interval->days) + 1 ."日</td>\n";          
+        } else if($today = $date){
+            $limit_html = "<td>0日</td>\n";
         } else {
             $limit_html ="<td>期限切れ</td>\n";
         }        
@@ -32,10 +34,10 @@
         $html.="<td>".$value["limit_date"]."</td>\n";
         $html.=$limit_html;
 
-        if($value["status"] == 0){
-            $html.="<td>未提出</td>\n";
-        } else{
+        if($value["status"]){
             $html.="<td>提出済み</td>\n";
+        } else{
+            $html.="<td>未提出</td>\n";
         }
 
         $button = "";

@@ -37,7 +37,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         "title": formData.get("kadai-title"),
         "content": formData.get("kadai-content"),
         "note": formData.get("kadai-memo"),
-        "status": 0
+        "status": false
     }
 
     //JSONにする
