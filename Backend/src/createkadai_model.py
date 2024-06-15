@@ -9,4 +9,4 @@ class KadaiCreate(BaseModel):
     title: str
     content: str
     note: str
-    status: int
+    status: bool

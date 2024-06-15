@@ -6,6 +6,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from connect_db import engine, get_db
 from kadai_model import Kadai
 from createkadai_model import KadaiCreate
+from upd_processmodel import Process
 
 from datetime import datetime
 
@@ -94,6 +95,20 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.commit()
   db.refresh(kadai_upd)
   return kadai_upd
+
+@app.put("/api/kadai/process/{id}", response_model=Process, tags=["APIエンドポイント"], summary="IDに応じた課題の完了フラグを変える")
+async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_db)):
+
+  kadai_upd_pros = db.query(Kadai).filter(Kadai.id == id).first()
+
+  if kadai_upd_pros is None:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+  
+  kadai_upd_pros.status = kadai.status
+
+  db.commit()
+  db.refresh(kadai_upd_pros)
+  return kadai_upd_pros
 
 @app.delete("/api/kadai/{id}", response_model=dict, tags=["APIエンドポイント"], summary="IDに応じた課題を削除します")
 def kadai_delete(id: int, db: Session=Depends(get_db)):

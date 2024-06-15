@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, BigInteger ,String, Date
+from sqlalchemy import Column, Integer, BigInteger ,String, Date, Boolean
 from connect_db import Base
 
 class Kadai(Base):
@@ -11,5 +11,5 @@ class Kadai(Base):
     title = Column(String(length=100, collation='utf8mb3_general_ci'))
     content = Column(String(length=100, collation='utf8mb3_general_ci'))
     note = Column(String(length=100, collation='utf8mb3_general_ci'))
-    status = Column(Integer)
+    status = Column(Boolean)
     
