@@ -4,6 +4,22 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
 
     //フォームのデータ取得
     var formData = new FormData(this);
+    //空欄チェック用のフラグ
+    let isEmpty = false;
+
+    //空欄チェック
+    for (let [key, value] of formData.entries()){
+        if(!value.trim()){
+            //空欄なので空欄チェックフラグを有効にする
+            isEmpty = true;
+        }
+    }
+
+    //空欄があることを警告し終了
+    if(isEmpty){
+        alert("すべて入力されていません");
+        return false;
+    }
 
     //データの取得 (name属性)
     const form_content = {
