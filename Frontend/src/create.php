@@ -15,41 +15,41 @@
                     <!-- 課題のタイトル -->
                     <div class="mb-3">
                         <label for="kadai-title-for" class="form-label">タイトル</label>
-                        <input type="text" class="form-control" id="kadai-title" maxlength="20">
+                        <input type="text" class="form-control" id="kadai-title" name="kadai-title" maxlength="20">
                     </div>
 
                     <!-- グループ -->
                     <div class="mb-3">
                         <label for="kadai-group-for" class="form-label">グループ</label>
-                        <input type="text" class="form-control" id="kadai-group" maxlength="20">
+                        <input type="text" class="form-control" id="kadai-group" name="kadai-group" maxlength="20">
                     </div>
 
                     <!-- 内容 -->
                     <div class="mb-3">
                         <label for="kadai-content-for" class="form-label">課題の内容</label>
-                        <textarea class="form-control" id="kadai-content" rows="2" maxlength="100"></textarea>
+                        <textarea class="form-control" id="kadai-content" name="kadai-content" rows="2" maxlength="100"></textarea>
                     </div>
 
                     <!-- 開始日 -->
                     <div class="mb-3">
                         <label for="kadai-start-for" class="form-label">課題開始日</label>
-                        <input type="date" class="form-control" id="kadai-start" value=<?php echo (new DateTime())->format("Y-m-d"); ?>>
+                        <input type="date" class="form-control" id="kadai-start" name="kadai-start" value=<?php echo (new DateTime())->format("Y-m-d"); ?>>
                     </div>
 
                     <!-- 期限日 -->
                     <div class="mb-3">
                         <label for="kadai-start-for" class="form-label">提出期限</label>
-                        <input type="date" class="form-control" id="kadai-limit">
+                        <input type="date" class="form-control" id="kadai-limit" name="kadai-limit">
                     </div>
 
                     <!-- メモ -->
                     <div class="mb-3">
                         <label for="kadai-memo-for" class="form-label">メモ</label>
-                        <input type="text" class="form-control" id="kadai-memo" maxlength="20">
+                        <input type="text" class="form-control" id="kadai-memo" name="kadai-memo" maxlength="20">
                     </div>
 
                     <!-- 登録日は非公開 -->
-                    <input id="kadai-registerday" value=<?php echo (new DateTime())->format("Y-m-d"); ?> hidden>
+                    <input id="kadai-registerday" name="kadai-registerday" value=<?php echo (new DateTime())->format("Y-m-d"); ?> hidden>
 
                     <!-- 登録ボタン -->
                     <div class="d-grid gap-2 col-6 mx-auto">
@@ -58,5 +58,8 @@
                 </form>
             </div>
         </div>
+
+    <!-- JS読み込み -->
+     <script src="js/kadai_create.js"></script>
     </body>
 </html>
