@@ -11,7 +11,7 @@
         <h1 class="text-center">新規登録</h1>
         <div class="d-flex justify-content-center">
             <div class="container mt-3">
-                <form>
+                <form id="kadai-form">
                     <!-- 課題のタイトル -->
                     <div class="mb-3">
                         <label for="kadai-title-for" class="form-label">タイトル</label>
