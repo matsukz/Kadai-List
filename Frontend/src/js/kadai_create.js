@@ -2,6 +2,11 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     //formタグの送信阻止
     event.preventDefault();
 
+    //ボタンを無効にする
+    $("#Register").prop("disabled", true)
+    //ボタンのテキストを変更する
+    $("#Register").text("処理中...");
+
     //フォームのデータ取得
     var formData = new FormData(this);
     //空欄チェック用のフラグ
@@ -18,6 +23,8 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     //空欄があることを警告し終了
     if(isEmpty){
         alert("すべて入力されていません");
+        $("#Register").prop("disabled", false);
+        $("#Register").text("登録");
         return false;
     }
 
@@ -35,5 +42,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
 
     //JSONにする
     const post_content = JSON.stringify(form_content);
+
+
 
 })
