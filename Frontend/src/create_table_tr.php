@@ -32,10 +32,10 @@
         $html.="<td>".$value["limit_date"]."</td>\n";
         $html.=$limit_html;
 
-        if($value["status"] == 0){
-            $html.="<td>未提出</td>\n";
-        } else{
+        if($value["status"]){
             $html.="<td>提出済み</td>\n";
+        } else{
+            $html.="<td>未提出</td>\n";
         }
 
         $button = "";
