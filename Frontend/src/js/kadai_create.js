@@ -9,7 +9,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
 
     //空欄チェック
     for (let [key, value] of formData.entries()){
-        if(!value.trim()){
+        if(key !== "kadai-memo" && !value.trim()){
             //空欄なので空欄チェックフラグを有効にする
             isEmpty = true;
         }
