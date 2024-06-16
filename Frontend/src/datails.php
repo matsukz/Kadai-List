@@ -104,5 +104,6 @@
             </div>
         </div>
         <script src="js/kadai_status_upd.js"></script>
+        <script src="js/kadai_delete.js"></script>
     </body>
 </html>
