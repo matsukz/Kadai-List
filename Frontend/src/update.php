@@ -75,9 +75,10 @@
                     </div>
 
                     <!-- 登録日とステータスとidは非公開 -->
+                    <!-- $status ? "1":"0" ; true->1 false->0 -->
                     <input id="kadai-id" name="kadai-id" value=<?php echo $_POST['kadai-id']; ?> hidden>                 
                     <input id="kadai-registerday" name="kadai-registerday" value=<?php echo $start_date; ?> hidden>
-                    <input id="kadai-status" name="kadai-status" value=<?php echo $status ? true:false ; ?> hidden>
+                    <input id="kadai-status" name="kadai-status" value=<?php echo $status ? "1":"0" ; ?> hidden>
 
                     <!-- 登録ボタン -->
                     <div class="d-grid gap-2 col-6 mx-auto">
