@@ -71,7 +71,7 @@
                     <!-- メモ -->
                     <div class="mb-3">
                         <label for="kadai-memo-for" class="form-label">メモ</label>
-                        <input type="text" class="form-control" id="kadai-memo" name="kadai-memo" value=<?php echo $note; ?> maxlength="20">
+                        <input type="text" class="form-control" id="kadai-memo" name="kadai-memo" value=<?php echo '"'.$note.'"' ; ?> maxlength="20">
                     </div>
 
                     <!-- 登録日とステータスは非公開 -->
