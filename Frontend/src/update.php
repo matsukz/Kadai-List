@@ -74,7 +74,8 @@
                         <input type="text" class="form-control" id="kadai-memo" name="kadai-memo" value=<?php echo '"'.$note.'"' ; ?> maxlength="20">
                     </div>
 
-                    <!-- 登録日とステータスは非公開 -->
+                    <!-- 登録日とステータスとidは非公開 -->
+                    <input id="kadai-id" name="kadai-id" value=<?php echo $_POST['kadai-id']; ?> hidden>                 
                     <input id="kadai-registerday" name="kadai-registerday" value=<?php echo $start_date; ?> hidden>
                     <input id="kadai-status" name="kadai-status" value=<?php echo $status ? true:false ; ?> hidden>
 
