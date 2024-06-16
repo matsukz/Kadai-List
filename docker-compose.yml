@@ -2,7 +2,6 @@ services:
   fastapi:
     container_name: kadai_fastapi
     build: Backend/
-    restart: always
     ports:
       - 9004:9004
     volumes:
@@ -30,7 +29,6 @@ services:
   mysql:
       image: mysql:8.0
       container_name: kadai_mysql
-      restart: always
       volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/scripts:/docker-entrypoint-initdb.d
