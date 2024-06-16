@@ -1,3 +1,6 @@
+//環境変数もどきの読み込み
+import { api_point } from "./environment.js";
+
 document.getElementById("kadai-form").addEventListener("submit", function(event) {
     //formタグの送信阻止
     event.preventDefault();
@@ -43,13 +46,9 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     //JSONにする
     const post_content = JSON.stringify(form_content);
 
-    //APIサーバのドメインをセットする
-    var url = new URL(window.location.href);
-    var host = url.hostname;
-
-    //新規登録APIを叩く(本番環境では変える)
+    //新規登録APIを叩く
     $.ajax({
-        url: "http://" + host + ":9004/api/kadai/",
+        url: api_point,
         type: "POST",
         contentType: "application/json",
         data: post_content,

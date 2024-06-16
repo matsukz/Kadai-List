@@ -1,3 +1,6 @@
+//環境変数もどきの読み込み
+import { api_point } from "./environment.js";
+
 document.getElementById("btn-success").onclick = function() {
 
     //ボタンのテキストを取得する
@@ -30,13 +33,9 @@ document.getElementById("btn-success").onclick = function() {
         return
     }
 
-    //APIサーバー
-    var url = new URL(window.location.href);
-    var host = url.hostname;
-
     //状況更新APIを叩く
     $.ajax({
-        url: "http://" + host + ":9004/api/kadai/process/" + kadai_id,
+        url: api_point + "/process/" + kadai_id,
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify({"status": status_flag}),
