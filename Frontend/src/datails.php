@@ -94,11 +94,16 @@
                             echo '<button type="button" class="btn btn-success" id="btn-success">提出済みにする</button>';
                         }
                     ?>
-                    <button type="button" class="btn btn-warning" id="btn-update">課題を編集</button>
+
+                    <form action="update.php" method="POST">
+                        <input id="kadai-id" name="kadai-id" value=<?php echo $id; ?> hidden>
+                        <button type="submit" class="btn btn-warning w-100" id="btn-update">課題を編集</button> 
+                    </form>
+                    
                     <button type="button" class="btn btn-danger" id="btn-delete">課題を削除</button>
                 </div>
                 <div style="display: flex; justify-content: center;">
-                    <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">戻る</button>
+                    <button type="button" class="btn btn-secondary mt-3" onclick="location.href='index.php'">戻る</button>
                 </div>
 
             </div>
