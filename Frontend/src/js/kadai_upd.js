@@ -47,7 +47,6 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     const post_content = JSON.stringify(form_content);
 
     console.log(post_content);
-    return
 
     //APIサーバのドメインをセットする
     var url = new URL(window.location.href);
@@ -55,22 +54,22 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
 
     //新規登録APIを叩く(本番環境では変える)
     $.ajax({
-        url: "http://" + host + ":9004/api/kadai/",
-        type: "POST",
+        url: "http://" + host + ":9004/api/kadai/" + formData.get("kadai-id"),
+        type: "PUT",
         contentType: "application/json",
         data: post_content,
         cache: false
     }).done(function(response){
-        alert("登録が完了しました。\n トップページに戻ります。")
-        window.location.href = "index.php";
+        alert(formData.get("kadai-id") + "を更新しました。\n 詳細ページに戻ります。")
+        window.location.href = "datails.php";
         return
     }).fail(function(xhr, status, error){
-        alert("新規登録に失敗しました。\n APIサーバーを確認してください。");
+        alert("更新に失敗しました。\n APIサーバーを確認してください。");
         console.error('AJAX Error:', status, error);
     }).always(function(){
         //いる？
         $("#Update").prop("disabled", false);
-        $("#Update").text("登録");
+        $("#Update").text("更新");
+        $("btn-back").prop("disabled", false);
     })
-
 })
