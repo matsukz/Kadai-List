@@ -60,9 +60,23 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         data: post_content,
         cache: false
     }).done(function(response){
-        alert(formData.get("kadai-id") + "を更新しました。\n 詳細ページに戻ります。")
-        window.location.href = "datails.php";
-        return
+        alert(formData.get("kadai-id") + "を更新しました。\n詳細ページへ戻ります。");
+
+        //datails.phpはkadai-idをpostしないとエラーになる。
+        var tojamp_form = $("<form>",{
+            action: "datails.php",
+            method: "POST"
+        });
+
+        tojamp_form.append($("<input>", {
+            type: "hidden",
+            name: "kadai_id",
+            value: formData.get("kadai-id")
+        }));
+
+        tojamp_form.appendTo("body");
+        tojamp_form.submit();
+
     }).fail(function(xhr, status, error){
         alert("更新に失敗しました。\n APIサーバーを確認してください。");
         console.error('AJAX Error:', status, error);
