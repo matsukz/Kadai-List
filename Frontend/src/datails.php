@@ -79,6 +79,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    
+                    <!-- falseだけHTMLに出力されないの初見殺しすぎる -->
+                    <input id="kadai-status" value=<?php echo $status ? "1":"0"; ?> hidden>
+                    <input id="kadai-id" value=<?php echo $id; ?> hidden>
 
                 <!-- 操作ボタン -->
                 <div class="d-grid gap-2 col-6 mx-auto">
@@ -99,5 +103,6 @@
 
             </div>
         </div>
+        <script src="js/kadai_status_upd.js"></script>
     </body>
 </html>
