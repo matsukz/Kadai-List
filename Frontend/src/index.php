@@ -13,6 +13,10 @@
         <br>
 
         <div class="container-fluid">
+            <!-- 新規作成画面に行くボタン -->
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
+            </div>
 
             <div class="col-12">
 
