@@ -26,7 +26,7 @@ document.getElementById("btn-success").onclick = function() {
         //ボタンを有効に戻す
         $("#btn-success").prop("disabled", false);
         //ボタンのテキストを変更する
-        $("#btn-successr").text(button_text);
+        $("#btn-success").text(button_text);
         return
     }
 
@@ -53,6 +53,6 @@ document.getElementById("btn-success").onclick = function() {
         $("#btn-update").prop("disabled", false);
         $("btn-delete").prop("disabled", false);
         //ボタンのテキストを変更する
-        $("#btn-successr").text(button_text);
+        $("#btn-success").text(button_text);
     })
 }
