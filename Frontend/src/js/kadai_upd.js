@@ -31,6 +31,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     }
 
     //データの取得 (name属性)
+    //statusは文字列で取得するので文字列-数値->真偽値 の順で変換する
     const form_content = {
         "register_date": formData.get("kadai-registerday"),
         "start_date": formData.get("kadai-start"),
@@ -39,7 +40,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         "title": formData.get("kadai-title"),
         "content": formData.get("kadai-content"),
         "note": formData.get("kadai-memo"),
-        "status": false
+        "status": Boolean(Number(formData.get("kadai-status")))
     }
 
     //JSONにする
