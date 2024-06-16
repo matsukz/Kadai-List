@@ -53,7 +53,7 @@
                     <!-- 内容 -->
                     <div class="mb-3">
                         <label for="kadai-content-for" class="form-label">課題の内容</label>
-                        <textarea class="form-control" id="kadai-content" name="kadai-content" rows="2" maxlength="100" required><?php echo $content; ?>></textarea>
+                        <textarea class="form-control" id="kadai-content" name="kadai-content" rows="2" maxlength="100" required><?php echo $content; ?></textarea>
                     </div>
 
                     <!-- 開始日 -->
@@ -74,8 +74,9 @@
                         <input type="text" class="form-control" id="kadai-memo" name="kadai-memo" value=<?php echo $note; ?> maxlength="20">
                     </div>
 
-                    <!-- 登録日は非公開 -->
+                    <!-- 登録日とステータスは非公開 -->
                     <input id="kadai-registerday" name="kadai-registerday" value=<?php echo $start_date; ?> hidden>
+                    <input id="kadai-status" name="kadai-status" value=<?php echo $status ? "1":"0" ; ?> hidden>
 
                     <!-- 登録ボタン -->
                     <div class="d-grid gap-2 col-6 mx-auto">
