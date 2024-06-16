@@ -5,9 +5,9 @@
         exit();
     }
 
-    $Schema = "http://";
-    $Domain = "fastapi";
-    $fastapi = $Schema.$Domain.":9004/api/kadai/".$_POST['kadai-id'];
+    include("environment.php");
+
+    $fastapi = $api_point.$_POST['kadai-id'];
     $data = "";
     $data = json_decode(file_get_contents($fastapi),true);
 

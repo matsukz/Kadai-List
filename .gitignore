@@ -161,3 +161,4 @@ cython_debug/
 
 compose.env
 mysql/data/*
+Frontend/frontend.env

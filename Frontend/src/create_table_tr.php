@@ -1,10 +1,9 @@
 <?php
 
     //APIエンドポイント(本番環境では実際のドメインにする)
-    $Schema = "http://";
-    $Domain = "fastapi";
-    $fastapi = $Schema.$Domain.":9004/api/kadai/";
-
+    include("environment.php");
+    $fastapi = $api_point;
+    
     //APIから返ってくるデータを格納する変数と初期化
     $data = json_decode(file_get_contents($fastapi),true);
     

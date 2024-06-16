@@ -23,6 +23,8 @@ services:
       - ./Frontend/php.ini:/usr/local/etc/php/php.ini
     environment:
       - TZ=Asia/Tokyo
+    env_file:
+      - ./Frontend/frontend.env
     depends_on:
       - mysql
 
