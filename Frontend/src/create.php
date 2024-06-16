@@ -55,6 +55,10 @@
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="submit" class="btn btn-primary" id="Register">登録</button>
                     </div>
+                    <!-- 戻るボタン -->
+                    <div style="display: flex; justify-content: center;">
+                        <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">戻る</button>
+                    </div>
                 </form>
             </div>
         </div>
