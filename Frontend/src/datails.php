@@ -1,9 +1,8 @@
 <?php
     //APIエンドポイント(本番環境では実際のドメインにする)
     //タイトルタグで必要なのでHTMLの前にPHPを実行しておく。
-    $Schema = "http://";
-    $Domain = "fastapi";
-    $fastapi = $Schema.$Domain.":9004/api/kadai/".$_POST['kadai_id'];
+    include("environment.php");
+    $fastapi = $api_point.$_POST['kadai_id'];
     $data = "";
     $data = json_decode(file_get_contents($fastapi),true);
     
@@ -108,7 +107,7 @@
 
             </div>
         </div>
-        <script src="js/kadai_status_upd.js"></script>
-        <script src="js/kadai_delete.js"></script>
+        <script src="js/kadai_status_upd.js" type="module"></script>
+        <script src="js/kadai_delete.js" type="module"></script>
     </body>
 </html>

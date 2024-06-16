@@ -1,3 +1,6 @@
+//環境変数もどきの読み込み
+import { api_point } from "./environment.js";
+
 document.getElementById("btn-delete").onclick = function() {
     //ボタンのテキストを取得する
     const button_text = document.getElementById("btn-delete").textContent;
@@ -12,13 +15,9 @@ document.getElementById("btn-delete").onclick = function() {
     //id取得
     const kadai_id = document.getElementById("kadai-id").value;
 
-    //APIサーバー
-    var url = new URL(window.location.href);
-    var host = url.hostname;
-
     //状況更新APIを叩く
     $.ajax({
-        url: "http://" + host + ":9004/api/kadai/" + kadai_id,
+        url: api_point + kadai_id,
         type: "DELETE",
         contentType: "application/json",
         data: JSON.stringify({"id": kadai_id}),
