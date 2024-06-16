@@ -92,6 +92,6 @@
         </div>
 
     <!-- JS読み込み -->
-     <script src="js/kadai_upd.js"></script>
+     <script src="js/kadai_upd.js" type="module"></script>
     </body>
 </html>
