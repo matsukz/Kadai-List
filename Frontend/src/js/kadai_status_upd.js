@@ -35,7 +35,7 @@ document.getElementById("btn-success").onclick = function() {
 
     //状況更新APIを叩く
     $.ajax({
-        url: api_point + "/process/" + kadai_id,
+        url: api_point + "process/" + kadai_id,
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify({"status": status_flag}),
