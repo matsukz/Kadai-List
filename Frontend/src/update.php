@@ -76,7 +76,7 @@
 
                     <!-- 登録日とステータスは非公開 -->
                     <input id="kadai-registerday" name="kadai-registerday" value=<?php echo $start_date; ?> hidden>
-                    <input id="kadai-status" name="kadai-status" value=<?php echo $status ? "1":"0" ; ?> hidden>
+                    <input id="kadai-status" name="kadai-status" value=<?php echo $status ? true:false ; ?> hidden>
 
                     <!-- 登録ボタン -->
                     <div class="d-grid gap-2 col-6 mx-auto">
