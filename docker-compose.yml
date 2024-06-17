@@ -2,8 +2,8 @@ services:
   fastapi:
     container_name: kadai_fastapi
     build: Backend/
-    expose:
-      - 9004
+    ports:
+      - 9004:9004
     volumes:
       - ./Backend/src:/src
     working_dir: /src
