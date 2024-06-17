@@ -56,6 +56,15 @@ services:
       - 8081:80
     depends_on:
       - mysql
+  
+  nginx:
+    image: nginx:1.27.0
+    container_name: kadai_nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
 
   # cloudflared:
   #   image: cloudflare/cloudflared
