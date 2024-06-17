@@ -2,8 +2,8 @@ services:
   fastapi:
     container_name: kadai_fastapi
     build: Backend/
-    ports:
-      - 9004:9004
+    expose:
+      - 9004
     volumes:
       - ./Backend/src:/src
     working_dir: /src
@@ -16,8 +16,8 @@ services:
   php:
     container_name: kadai_php
     image: php:8.2-apache
-    ports:
-      - 8500:80
+    expose:
+      - 80
     volumes:
       - ./Frontend/src:/var/www/html
       - ./Frontend/php.ini:/usr/local/etc/php/php.ini
