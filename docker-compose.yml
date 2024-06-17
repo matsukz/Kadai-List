@@ -66,9 +66,9 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
 
-  # cloudflared:
-  #   image: cloudflare/cloudflared
-  #   container_name: kadai_cloudflared
-  #   command: tunnel run
-  #   env_file:
-  #     - compose.env
+  cloudflared:
+    image: cloudflare/cloudflared
+    container_name: kadai_cloudflared
+    command: tunnel run
+    env_file:
+      - ./cloudflared/.env
