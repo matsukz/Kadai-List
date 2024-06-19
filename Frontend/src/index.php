@@ -11,15 +11,13 @@
         <br>
         <h1 class="text-center">課題一覧へようこそ！</h1>
         <br>
-
-        <div class="container-fluid">
-            <!-- 新規作成画面に行くボタン -->
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
-            </div>
-
-            <div class="col-12">
-
+            
+        <div class="d-flex justify-content-center">
+            <div class="col-8">    
+                <!-- 新規作成画面に行くボタン -->
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
+                </div>
                 <table class="table text-center">
                     <thead>
                         <tr>
@@ -37,7 +35,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
