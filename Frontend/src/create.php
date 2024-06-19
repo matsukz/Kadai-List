@@ -57,7 +57,7 @@
                     </div>
                     <!-- 戻るボタン -->
                     <div style="display: flex; justify-content: center;">
-                        <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">戻る</button>
+                        <button type="button" class="btn btn-secondary mt-3" id="btn-back" onclick="history.back()">戻る</button>
                     </div>
                 </form>
             </div>

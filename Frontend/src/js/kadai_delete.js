@@ -8,7 +8,8 @@ document.getElementById("btn-delete").onclick = function() {
     //ボタンを操作不可にする
     $("#btn-success").prop("disabled", true);
     $("#btn-update").prop("disabled", true);
-    $("btn-delete").prop("disabled", true);
+    $("#btn-delete").prop("disabled", true);
+    $("#btn-back").prop("disabled", true);
     //ボタンのテキストを変更する
     $("#btn-delete").text("処理中...");
 
@@ -32,7 +33,8 @@ document.getElementById("btn-delete").onclick = function() {
         //ボタンを有効に戻す
         $("#btn-success").prop("disabled", false);
         $("#btn-update").prop("disabled", false);
-        $("btn-delete").prop("disabled", false);
+        $("#btn-delete").prop("disabled", false);
+        $("#btn-back").prop("disabled", false);
         //ボタンのテキストを変更する
         $("#btn-delete").text(button_text);
     })

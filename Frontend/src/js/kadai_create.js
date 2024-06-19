@@ -6,7 +6,8 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     event.preventDefault();
 
     //ボタンを無効にする
-    $("#Register").prop("disabled", true)
+    $("#Register").prop("disabled", true);
+    $("#btn-back").prop("disabled", true);
     //ボタンのテキストを変更する
     $("#Register").text("処理中...");
 
@@ -27,6 +28,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     if(isEmpty){
         alert("すべて入力されていません");
         $("#Register").prop("disabled", false);
+        $("#btn-back").prop("disabled", false);
         $("#Register").text("登録");
         return false;
     }
@@ -63,6 +65,7 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     }).always(function(){
         //いる？
         $("#Register").prop("disabled", false);
+        $("#btn-back").prop("disabled", false);
         $("#Register").text("登録");
     })
 
