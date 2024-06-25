@@ -1,6 +1,23 @@
-const schema = "";
-const domain = "";
-const api_port = "";
-const api_path = "";
+//環境変数もどき
+var schema = "";
+var domain = "";
+var port = "";
 
-export const api_point = schema + domain + ":" + api_port + api_path;
+if(location.hostname == "localhost" || location.hostname == "127.0.0.1"){
+    //localhostの場合はスキーマをhttpにする
+    schema = "http://";
+    domain = "localhost";
+    port = "80"
+} else {
+    //運用するドメインをセットする
+    schema = "https://";
+    domain = "";
+    port = "443";
+}
+
+const api_schema = schema;
+const api_domain = domain;
+const api_port = port;
+const api_path = "/kadai/api/";
+
+export const api_point = api_schema + api_domain + ":" + api_port + api_path;
