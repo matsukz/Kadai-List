@@ -27,6 +27,7 @@ services:
       - ./Frontend/frontend.env
     depends_on:
       - mysql
+      - fastapi
 
   mysql:
       image: mysql:8.0
@@ -57,6 +58,7 @@ services:
     depends_on:
       - mysql
   
+
   nginx:
     image: nginx:1.27.0
     container_name: kadai_nginx
@@ -65,6 +67,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - fastapi
+      - php
 
   cloudflared:
     image: cloudflare/cloudflared
@@ -72,3 +77,5 @@ services:
     command: tunnel run
     env_file:
       - ./cloudflared/.env
+    depends_on:
+      - nginx
