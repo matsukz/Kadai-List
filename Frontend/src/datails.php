@@ -5,7 +5,7 @@
     $fastapi = $api_point.$_POST['kadai_id'];
     $data = "";
     $data = json_decode(file_get_contents($fastapi),true);
-    
+
     //タイトル
     foreach ($data as $value){
         $id = $value["id"];
@@ -17,20 +17,9 @@
         $content = $value["content"];
         $note = $value["note"];
         $status = $value["status"];
-
-        //日数差を取得
-        $today = new DateTime(); //今日の日付
-        $date = new DateTime($limit_date); //期限
-        $interval = $today -> diff($date); //差を求める
-        $limit_msg = "";
-        $limit_flag = false;
-        if($today < $date){
-            $limit_flag = true;
-            $limit_msg = "あと".($interval->days) + 1 ."日";
-        } else {
-            $limit_msg ="期限切れ";
-        }
     }
+
+    $limit_msg = $_POST["kadai_limit"];
 ?>
 <!DOCTYPE html>
 <html>
