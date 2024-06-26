@@ -25,18 +25,19 @@
 
         //今日の日付と比較する
         if($today->format("Y-m-d") <= $limit->format("Y-m-d")){
-            $limit_html.="<td>あと".$date_diff->days."日</td>\n";
+            $limit_html.="あと".$date_diff->days."日";
         } else if ($today->format("Y-m-d") > $limit->format("Y-m-d")){
-            $limit_html.="<td>期限切れ</td>\n";
+            $limit_html.="期限切れ";
         } else {
-            $limit_html.="<td>エラー</td>\n";
+            $limit_html.="エラー";
         }
 
         $html.="<tr>\n";
         $html.="<td>".$value["group"]."</td>\n";
         $html.="<td>".$value["title"]."</td>\n";
         $html.="<td>".$value["limit_date"]."</td>\n";
-        $html.=$limit_html;
+        $html.="<td>".$limit_html."</td>";
+        $html.="\n";
 
         if($value["status"]){
             $html.="<td>提出済み</td>\n";
@@ -48,6 +49,7 @@
         $button = '<td><form action="datails.php" method="post">
                         <input type="submit" name="submit" value="詳細">
                         <input type="hidden" name="kadai_id" id="kadai_id" value="'. $value["id"] .'">
+                        <input type="hidden" name="kadai_limit" id="kadai_limit" value="' .$limit_html. '">
                     </form></td>'; 
         $html.=$button;
         
