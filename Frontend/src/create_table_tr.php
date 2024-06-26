@@ -9,23 +9,28 @@
     
     //出力
     $html = "";
+    
 
-    //今日の日付を取得する
-    $today = new DateTime();
+    //今日の日付を取得する(タイムゾーンをセットし時刻は無視する)
+    $timezone = new DateTimeZone("Asia/Tokyo");
+    $today = (new DateTime("now" , $timezone));
 
     foreach($data as $value) {
 
-        //差を計算
-        $date = new DateTime($value["limit_date"]);
-        $interval = $today -> diff($date);
-        $limit_html = "";
-        if($today < $date){
-            $limit_html ="<td>".($interval->days) + 1 ."日</td>\n";          
-        } else if($today = $date){
-            $limit_html = "<td>0日</td>\n";
+        $limit_html = ""; //残日数をいれる変数を初期化する
+        
+        //提出期限取得
+        $limit = (new datetime($value["limit_date"], $timezone));
+        $date_diff = $today -> diff($limit);
+
+        //今日の日付と比較する
+        if($today->format("Y-m-d") <= $limit->format("Y-m-d")){
+            $limit_html.="<td>あと".$date_diff->days."日</td>\n";
+        } else if ($today->format("Y-m-d") > $limit->format("Y-m-d")){
+            $limit_html.="<td>期限切れ</td>\n";
         } else {
-            $limit_html ="<td>期限切れ</td>\n";
-        }        
+            $limit_html.="<td>エラー</td>\n";
+        }
 
         $html.="<tr>\n";
         $html.="<td>".$value["group"]."</td>\n";
