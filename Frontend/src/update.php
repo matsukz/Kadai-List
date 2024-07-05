@@ -37,7 +37,7 @@
     <body>
         <h1 class="text-center"><?php echo $title."を編集"; ?></h1>
         <div class="d-flex justify-content-center">
-            <div class="container mt-3">
+            <div class="col-10 col-mb-12">
                 <form id="kadai-form">
                     <!-- 課題のタイトル -->
                     <div class="mb-3">
