@@ -32,7 +32,7 @@
     </head>
     <body>
         <div class="d-flex justify-content-center">
-            <div class="container mt-3">
+            <div class="container col-9 col-mb-12">
                 <?php echo "<h1 class='text-center'>".$title."</h1>"; ?>
 
                     <table class="table">
