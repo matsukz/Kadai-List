@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
     <head>
         <title>課題一覧</title>
         <meta http-equiv="content-type" charset="UTF-8">

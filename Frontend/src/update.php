@@ -25,7 +25,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="ja">
     <head>
         <title><?php echo $title."を編集"; ?></title>
         <meta http-equiv="content-type" charset="UTF-8">
