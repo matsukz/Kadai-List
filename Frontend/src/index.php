@@ -14,24 +14,26 @@
         <br>
             
         <div class="d-flex justify-content-center">
-            <div class="col-10 col-mb-12">    
-                <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
-                <table class="table text-center text-nowrap table-responsive">
-                    <thead>
-                        <tr>
-                            <th scope="col">グループ</th>
-                            <th scope="col">タイトル</th>
-                            <th scope="col">課題期限</th>
-                            <th scope="col">残日数</th>
-                            <th scope="col">状態</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- テーブルの中身はphp"に任せる -->
-                        <?php $value = include "create_table_tr.php"; echo $value; ?>
-                    </tbody>
-                </table>
+            <div class="col-10 col-mb-12">
+                <div class="table-responsive">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
+                    <table class="table text-center text-nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col">グループ</th>
+                                <th scope="col">タイトル</th>
+                                <th scope="col">課題期限</th>
+                                <th scope="col">残日数</th>
+                                <th scope="col">状態</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- テーブルの中身はphp"に任せる -->
+                            <?php $value = include "create_table_tr.php"; echo $value; ?>
+                        </tbody>
+                    </table>                    
+                </div>
             </div>
         </div>
 
