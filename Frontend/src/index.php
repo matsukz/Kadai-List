@@ -3,6 +3,7 @@
     <head>
         <title>sample</title>
         <meta http-equiv="content-type" charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- スマホ版に対応させる -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js""></script>
     </head>
@@ -13,12 +14,9 @@
         <br>
             
         <div class="d-flex justify-content-center">
-            <div class="col-8">    
-                <!-- 新規作成画面に行くボタン -->
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
-                </div>
-                <table class="table text-center">
+            <div class="col-10 col-mb-12">    
+                <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
+                <table class="table text-center text-nowrap table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">グループ</th>
