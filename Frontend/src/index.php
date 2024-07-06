@@ -32,7 +32,7 @@
                         </thead>
                         <tbody>
                             <!-- テーブルの中身はphp"に任せる -->
-                            <?php echo create_table("filter?status=true"); ?>
+                            <?php echo create_table("filter?status=false"); ?>
                         </tbody>
                     </table>
                     
@@ -51,7 +51,7 @@
                         </thead>
                         <tbody>
                             <!-- テーブルの中身はphp"に任せる -->
-                            <?php echo create_table("filter?status=false"); ?>
+                            <?php echo create_table("filter?status=true"); ?>
                         </tbody>
                     </table>
 
