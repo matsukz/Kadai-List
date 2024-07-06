@@ -35,7 +35,9 @@
                             <?php echo create_table("filter?status=false"); ?>
                         </tbody>
                     </table>
-                    
+                </div>
+
+                <div class="table-responsive">   
                     <!-- 完了済み課題を表示するテーブル -->
                     <br><h2 class="text-center">提出済みの課題</h2>
                     <table class="table text-center text-nowrap">
@@ -54,7 +56,6 @@
                             <?php echo create_table("filter?status=true"); ?>
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
