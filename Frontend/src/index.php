@@ -26,7 +26,6 @@
                                 <th scope="col">タイトル</th>
                                 <th scope="col">課題期限</th>
                                 <th scope="col">残日数</th>
-                                <th scope="col">状態</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -47,7 +46,6 @@
                                 <th scope="col">タイトル</th>
                                 <th scope="col">課題期限</th>
                                 <th scope="col">残日数</th>
-                                <th scope="col">状態</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>

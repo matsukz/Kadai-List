@@ -53,12 +53,6 @@
             $html.="<td>".$limit_html."</td>";
             $html.="\n";
     
-            if($value["status"]){
-                $html.="<td>提出済み</td>\n";
-            } else{
-                $html.="<td>未提出</td>\n";
-            }
-    
             $button = "";
             $button = '<td><form action="datails.php" method="post">
                             <input type="submit" name="submit" value="詳細">
