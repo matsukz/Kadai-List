@@ -1,9 +1,10 @@
 <?php
 
-    function create_table($status){
+    include("call_api.php");
+
+    function create_table($status_param){
         include("environment.php");
-        include("call_api.php");
-        $data = call_fastapi($api_point.$status);
+        $data = call_fastapi($api_point.$status_param);
     
         //返却値が数値のHTTPコードの場合は出力を変える
         if(gettype($data) == "integer"){
