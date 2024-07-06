@@ -24,6 +24,5 @@
         }
 
         curl_close($ch);
-        
     }
 ?>
