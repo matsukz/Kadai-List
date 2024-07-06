@@ -3,13 +3,28 @@
     //APIエンドポイント(本番環境では実際のドメインにする)
     include("environment.php");
     $fastapi = $api_point;
-    
-    //APIから返ってくるデータを格納する変数と初期化
-    $data = json_decode(file_get_contents($fastapi),true);
-    
+
+    include("call_api.php");
+    $data = call_fastapi($api_point);
+
+    //返却値が数値のHTTPコードの場合は出力を変える
+    if(gettype($data) == "integer"){
+        switch($data){
+            case 403:
+                return "<tr><td colspan=6>許可がありません(コード:403)</td></tr>";
+            case 404:
+                return "<tr><td colspan=6>対象の課題が存在しません(コード:404)</td></tr>";
+            case 444:
+                return "<tr><td colspan=6>APIサーバーからの応答がありません(コード:444)</td></tr>";
+            case 500:
+                return "<tr><td colspan=6>APIサーバーでエラーが発生しました(コード:500)</td></tr>";
+            default:
+                return "<tr><td colspan=6>不明なエラーが発生しました</td></tr>";
+        }        
+    }
+
     //出力
     $html = "";
-    
 
     //今日の日付を取得する(タイムゾーンをセットし時刻は無視する)
     $timezone = new DateTimeZone("Asia/Tokyo");
