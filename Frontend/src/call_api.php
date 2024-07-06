@@ -11,6 +11,7 @@
         curl_setopt_array($ch,$curl_options);
 
         $response = curl_exec($ch); //curl実行
+        curl_close($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         //タイムアウト
@@ -22,7 +23,5 @@
         } else {
             return $http_code;
         }
-
-        curl_close($ch);
     }
 ?>
