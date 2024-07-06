@@ -3,8 +3,25 @@
     //タイトルタグで必要なのでHTMLの前にPHPを実行しておく。
     include("environment.php");
     $fastapi = $api_point.$_POST['kadai_id'];
-    $data = "";
-    $data = json_decode(file_get_contents($fastapi),true);
+    
+    include("call_api.php");
+    $data = call_fastapi($fastapi);
+
+    //返却値が数値のHTTPコードの場合は出力を変える
+    if(gettype($data) == "integer"){
+        switch($data){
+            case 403:
+                echo "<p>許可がありません(コード:403)</p>";
+            case 404:
+                echo "<p>対象の課題が存在しません(コード:404)</p>";
+            case 444:
+                echo "<p>APIサーバーからの応答がありません(コード:444)</p>";
+            case 500:
+                echo "<p>APIサーバーでエラーが発生しました(コード:500)</p>";
+            default:
+                echo "<p>不明なエラーが発生しました</p>";
+        }        
+    }
 
     //タイトル
     foreach ($data as $value){
