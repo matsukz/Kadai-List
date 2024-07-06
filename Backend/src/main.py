@@ -45,6 +45,15 @@ async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
 
+@app.get("/kadai/api/filter", tags=["APIエンドポイント"], summary="提出状況で絞り込みます")
+async def kadai_getfilter(status: bool, db: Session=Depends(get_db)):
+  kadai_status:bool ; kadai_status = status
+  kadai = db.query(Kadai).filter(Kadai.status == kadai_status).all()
+  if kadai == []:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+  else:
+    return kadai
+
 @app.get("/kadai/api/{id}", tags=["APIエンドポイント"], summary="IDに応じた課題を取得します")
 async def kadai_get_id(id, db: Session=Depends(get_db)):
 
