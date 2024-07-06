@@ -16,9 +16,9 @@
             
         <div class="d-flex justify-content-center">
             <div class="col-10 col-mb-12">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
+                <h2 class="text-center">未提出の課題</h2>                
                 <div class="table-responsive">
-                    <button type="button" class="btn btn-primary" onclick="window.location.href='create.php'">新規登録</button>
-                    <h2 class="text-center">未提出の課題</h2>
                     <table class="table text-center text-nowrap">
                         <thead>
                             <tr>
@@ -37,9 +37,9 @@
                     </table>
                 </div>
 
+                <br><h2 class="text-center">提出済みの課題</h2>
                 <div class="table-responsive">   
                     <!-- 完了済み課題を表示するテーブル -->
-                    <br><h2 class="text-center">提出済みの課題</h2>
                     <table class="table text-center text-nowrap">
                         <thead>
                             <tr>
