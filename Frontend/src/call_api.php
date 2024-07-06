@@ -1,5 +1,5 @@
 <?php
-    function($api_point){
+    function call_fastapi($api_point){
 
         $ch = curl_init();
         $curl_options = array(
