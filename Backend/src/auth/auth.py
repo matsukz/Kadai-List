@@ -9,8 +9,8 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 
-from user_model import Users, UserCreate
-from ..connect_db import get_db
+from auth.user_model import Users, UserCreate
+from connect_db import get_db
 
 load_dotenv()
 

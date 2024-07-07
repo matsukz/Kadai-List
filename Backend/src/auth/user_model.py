@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, BigInteger ,String, Date, Boolean
 from pydantic import BaseModel
 from typing import Optional
 
-from ..connect_db import Base
+from connect_db import Base
 
 #ユーザーに関する情報
 class Users(Base):
