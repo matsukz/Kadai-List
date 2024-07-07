@@ -33,6 +33,17 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         return false;
     }
 
+    //日付が逆にならないようにする
+    var start_date = document.getElementById("kadai-start").value;
+    var limit_date = document.getElementById("kadai-limit").value;
+    if(limit_date < start_date){
+        alert("日付が不正です");
+        $("#Register").prop("disabled", false);
+        $("#btn-back").prop("disabled", false);
+        $("#Register").text("登録");
+        return;
+    }
+
     //データの取得 (name属性)
     //statusは文字列で取得するので文字列-数値->真偽値 の順で変換する
     const form_content = {
