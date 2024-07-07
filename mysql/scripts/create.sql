@@ -12,7 +12,7 @@ CREATE TABLE `kadai` (
     PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 
-CREATE TABLE users (
+CREATE TABLE `users` (
     `user_id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(50) NOT NULL UNIQUE,
     `password_hash` VARCHAR(100) NOT NULL,
