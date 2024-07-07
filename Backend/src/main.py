@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends,  HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
@@ -7,10 +8,11 @@ from connect_db import engine, get_db
 from kadai_model import Kadai
 from createkadai_model import KadaiCreate
 from upd_processmodel import Process
-from auth.auth import create_user
+from auth.auth import create_user,authenticate_user,create_access_token
+from auth.auth import ACCESS_TOKEN_EXPIRE_MINUTES
 from auth.user_model import Users, UserCreate
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 description = """
   MySQLと連携してタスク管理をするAPIです。\n
@@ -153,3 +155,20 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
+
+@app.post("kadai/api/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
+  user = authenticate_user(form_data.username, form_data.password, db)
+  if not user:
+    raise HTTPException(
+      status_code = 401,
+      detail="Incorrect username or password",
+      headers={"WWW-Authenticate": "Bearer"}
+    )
+  access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+  access_token = create_access_token(
+    data={"sub":user.username},
+    expires_delta=access_token_expires
+  )
+
+  return {"access_token": access_token, "token_type": "bearer"}
