@@ -18,6 +18,9 @@ description = """
   Githubのリポジトリは[こちら](https://github.com/matsukz/Kadai-List)
   """
 
+tags_kadai:str ; tags_kadai = "課題API"
+tags_auth:str ; tags_auth = "ユーザー認証API"
+
 app = FastAPI(
   title = "課題管理API - FastAPI",
   description=description
@@ -42,12 +45,12 @@ async def startup():
 async def shutdown():
   pass
 
-@app.get("/kadai/api/", tags=["APIエンドポイント"], summary="すべての課題を取得します")
+@app.get("/kadai/api/", tags=[tags_kadai], summary="すべての課題を取得します")
 async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
 
-@app.get("/kadai/api/filter", tags=["APIエンドポイント"], summary="提出状況で絞り込みます")
+@app.get("/kadai/api/filter", tags=[tags_kadai], summary="提出状況で絞り込みます")
 async def kadai_getfilter(status: bool, db: Session=Depends(get_db)):
   kadai_status:bool ; kadai_status = status
   kadai = db.query(Kadai).filter(Kadai.status == kadai_status).all()
@@ -56,7 +59,7 @@ async def kadai_getfilter(status: bool, db: Session=Depends(get_db)):
   else:
     return kadai
 
-@app.get("/kadai/api/{id}", tags=["APIエンドポイント"], summary="IDに応じた課題を取得します")
+@app.get("/kadai/api/{id}", tags=[tags_kadai], summary="IDに応じた課題を取得します")
 async def kadai_get_id(id, db: Session=Depends(get_db)):
 
   kadai = db.query(Kadai).filter(Kadai.id == id).all()
@@ -65,7 +68,7 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
   else:
     return kadai
 
-@app.post("/kadai/api/", response_model=KadaiCreate, tags=["APIエンドポイント"], summary="課題を新規作成します")
+@app.post("/kadai/api/", response_model=KadaiCreate, tags=[tags_kadai], summary="課題を新規作成します")
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   """日付は YYYY-MM-DDの形です!"""
 
@@ -90,7 +93,7 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(create_kadai) #再読み込み
   return create_kadai
 
-@app.put("/kadai/api/{id}", response_model=KadaiCreate,tags=["APIエンドポイント"], summary="IDに応じた課題を編集します")
+@app.put("/kadai/api/{id}", response_model=KadaiCreate,tags=[tags_kadai], summary="IDに応じた課題を編集します")
 async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
 
   kadai_upd = db.query(Kadai).filter(Kadai.id == id).first()
@@ -111,7 +114,7 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   db.refresh(kadai_upd)
   return kadai_upd
 
-@app.put("/kadai/api/process/{id}", response_model=Process, tags=["APIエンドポイント"], summary="IDに応じた課題の完了フラグを変える")
+@app.put("/kadai/api/process/{id}", response_model=Process, tags=[tags_kadai], summary="IDに応じた課題の完了フラグを変える")
 async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_db)):
 
   kadai_upd_pros = db.query(Kadai).filter(Kadai.id == id).first()
@@ -125,7 +128,7 @@ async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_d
   db.refresh(kadai_upd_pros)
   return kadai_upd_pros
 
-@app.delete("/kadai/api/{id}", response_model=dict, tags=["APIエンドポイント"], summary="IDに応じた課題を削除します")
+@app.delete("/kadai/api/{id}", response_model=dict, tags=[tags_kadai], summary="IDに応じた課題を削除します")
 def kadai_delete(id: int, db: Session=Depends(get_db)):
 
   kadai_del = db.query(Kadai).filter(Kadai.id == id).first()
@@ -140,8 +143,8 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
   msg = f"User:{id} deleted successfully"
   return {"message": msg}
 
-#ユーザー登録ポイント
-@app.post("/kadai/api/register", response_model=dict)
+
+@app.post("/kadai/api/register", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
 async def register_user(user: UserCreate, db: Session=Depends(get_db)):
 
   db_user = db.query(Users).filter(Users.username == user.username).first()
