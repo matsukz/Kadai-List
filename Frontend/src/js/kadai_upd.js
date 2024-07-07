@@ -57,7 +57,19 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
         data: post_content,
         cache: false
     }).done(function(response){
-        alert(formData.get("kadai-id") + "を更新しました。\n詳細ページへ戻ります。");
+
+        //日付を取得
+        var limit_date = new Date(formData.get("kadai-limit"));
+        //今日の日付
+        const Today = new Date();
+        //差分を計算（ミリ秒なので日に変換する）
+        var date_diff = parseInt((limit_date.getTime() - Today.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        var limit_msg = "";
+        if(date_diff >= 0){
+            limit_msg = "あと" + date_diff + "日";
+        } else {
+            limit_msg = "期限切れ";
+        }
 
         //datails.phpはkadai-idをpostしないとエラーになる。
         var tojamp_form = $("<form>",{
@@ -71,7 +83,14 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
             value: formData.get("kadai-id")
         }));
 
+        tojamp_form.append($("<input>", {
+            type: "hidden",
+            name: "kadai_limit",
+            value: limit_msg
+        }));
+
         tojamp_form.appendTo("body");
+        alert(formData.get("kadai-id") + "を更新しました。\n詳細ページへ戻ります。");
         tojamp_form.submit();
 
     }).fail(function(xhr, status, error){
