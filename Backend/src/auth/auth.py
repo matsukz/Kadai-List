@@ -4,10 +4,11 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session, sessionmaker
 import secrets
+from typing import Optional
 
 import os
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 from auth.user_model import Users, UserCreate
 from connect_db import get_db
@@ -40,3 +41,29 @@ def create_user(user: UserCreate, db: Session=Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = dict.copy()
+    if expires_delta:
+        expires = datetime.now(datetime.utc)  + expires_delta
+    else:
+        expires = datetime.now(timezone.utc) + timedelta(minutes=15)
+    
+    to_encode.update({"exp":expires})
+    encode_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encode_jwt
+
+def authenticate_user(username:str, password:str, db: Session=Depends(get_db)):
+    user = get_user(username, db)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+
+
+def get_user(username:str, db: Session=Depends(get_db)):
+    return db.query(Users).filter(Users.username == username).first()
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
