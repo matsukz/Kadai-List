@@ -10,3 +10,4 @@ class KadaiCreate(BaseModel):
     content: str
     note: str
     status: bool
+    user_id: int

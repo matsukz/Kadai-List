@@ -6,3 +6,5 @@ sqlalchemy
 databases
 mysqlclient
 aiomysql
+python-jose[cryptography]
+passlib[bcrypt]

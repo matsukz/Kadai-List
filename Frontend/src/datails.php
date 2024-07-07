@@ -3,8 +3,32 @@
     //タイトルタグで必要なのでHTMLの前にPHPを実行しておく。
     include("environment.php");
     $fastapi = $api_point.$_POST['kadai_id'];
-    $data = "";
-    $data = json_decode(file_get_contents($fastapi),true);
+    
+    include("call_api.php");
+    $data = call_fastapi($fastapi);
+
+    //返却値が数値のHTTPコードの場合は出力を変える
+    if(gettype($data) == "integer"){
+        header("HTTP/1.0 404 Not Found");
+        switch($data){
+            case 403:
+                echo "<p>許可がありません(コード:403)</p>";
+                break;
+            case 404:
+                echo "<p>対象の課題が存在しません(コード:404)</p>";
+                break;
+            case 444:
+                echo "<p>APIサーバーからの応答がありません(コード:444)</p>";
+                break;
+            case 500:
+                echo "<p>APIサーバーでエラーが発生しました(コード:500)</p>";
+                break;
+            default:
+                echo "<p>不明なエラーが発生しました</p>";
+        }
+        echo "<a href='index.php'>戻る</a>";
+        exit;
+    }
 
     //タイトル
     foreach ($data as $value){
@@ -48,15 +72,15 @@
                             </tr>
                             <tr>
                                 <td class="col-4">登録グループ</td>
-                                <td class="col-8"><?php echo $group; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($group, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">内容</td>
-                                <td class="col-8"><?php echo $content; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($content, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">メモ</td>
-                                <td class="col-8"><?php echo $note; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($note, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">提出期限</td>
@@ -94,7 +118,6 @@
                 <div style="display: flex; justify-content: center;">
                     <button type="button" class="btn btn-secondary mt-3" id="btn-back" onclick="location.href='index.php'">戻る</button>
                 </div>
-
             </div>
         </div>
         <script src="js/kadai_status_upd.js" type="module"></script>

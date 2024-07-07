@@ -45,6 +45,15 @@ async def kadai_getall(db: Session=Depends(get_db)):
   kadai = db.query(Kadai).all()
   return kadai
 
+@app.get("/kadai/api/filter", tags=["APIエンドポイント"], summary="提出状況で絞り込みます")
+async def kadai_getfilter(status: bool, db: Session=Depends(get_db)):
+  kadai_status:bool ; kadai_status = status
+  kadai = db.query(Kadai).filter(Kadai.status == kadai_status).all()
+  if kadai == []:
+    raise HTTPException(status_code=404, detail="Kadai not found")
+  else:
+    return kadai
+
 @app.get("/kadai/api/{id}", tags=["APIエンドポイント"], summary="IDに応じた課題を取得します")
 async def kadai_get_id(id, db: Session=Depends(get_db)):
 
@@ -57,6 +66,10 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
 @app.post("/kadai/api/", response_model=KadaiCreate, tags=["APIエンドポイント"], summary="課題を新規作成します")
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   """日付は YYYY-MM-DDの形です!"""
+
+  if newkadai.limit_date < newkadai.start_date:
+    raise HTTPException(status_code=400, detail="Is the date setting accurate?")
+  
   #kadai_model参照
   create_kadai = Kadai(
     #idはオートインクリメント
