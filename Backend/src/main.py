@@ -156,7 +156,7 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
 
-@app.post("kadai/api/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+@app.post("/kadai/api/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
   user = authenticate_user(form_data.username, form_data.password, db)
   if not user:
