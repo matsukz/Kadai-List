@@ -72,15 +72,15 @@
                             </tr>
                             <tr>
                                 <td class="col-4">登録グループ</td>
-                                <td class="col-8"><?php echo $group; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($group, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">内容</td>
-                                <td class="col-8"><?php echo $content; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($content, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">メモ</td>
-                                <td class="col-8"><?php echo $note; ?></td>
+                                <td class="col-8"><?php echo htmlspecialchars($note, ENT_QUOTES, "UTF-8"); ?></td>
                             </tr>
                             <tr>
                                 <td class="col-4">提出期限</td>
