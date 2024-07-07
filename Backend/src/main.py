@@ -151,5 +151,5 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   if db_user:
     raise HTTPException(status_code=400, detail="Username already registered")
   
-  user = create_user(db,user)
+  user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
