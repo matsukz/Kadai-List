@@ -7,6 +7,8 @@ from connect_db import engine, get_db
 from kadai_model import Kadai
 from createkadai_model import KadaiCreate
 from upd_processmodel import Process
+from auth.auth import create_user
+from auth.user_model import Users, UserCreate
 
 from datetime import datetime
 
@@ -137,3 +139,14 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
   db.commit()
   msg = f"User:{id} deleted successfully"
   return {"message": msg}
+
+#ユーザー登録ポイント
+@app.post("/kadai/api/register", response_model=dict)
+async def register_user(user: UserCreate, db: Session=Depends(get_db)):
+
+  db_user = db.query(Users).filter(Users.username == user.username).first()
+  if db_user:
+    raise HTTPException(status_code=400, detail="Username already registered")
+  
+  user = create_user(db,user)
+  return {"username": user.username, "api_key": user.api_key}
