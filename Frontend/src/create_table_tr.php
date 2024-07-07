@@ -47,9 +47,9 @@
             }
     
             $html.="<tr>\n";
-            $html.="<td>".$value["group"]."</td>\n";
-            $html.="<td>".$value["title"]."</td>\n";
-            $html.="<td>".$value["limit_date"]."</td>\n";
+            $html.="<td>".htmlspecialchars($value["group"], ENT_QUOTES, "UTF-8")."</td>\n";
+            $html.="<td>".htmlspecialchars($value["title"], ENT_QUOTES, "UTF-8")."</td>\n";
+            $html.="<td>".htmlspecialchars($value["limit_date"], ENT_QUOTES, "UTF-8")."</td>\n";
             $html.="<td>".$limit_html."</td>";
             $html.="\n";
     
