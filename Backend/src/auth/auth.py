@@ -1,10 +1,14 @@
+from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from sqlalchemy.orm import Session, sessionmaker
 
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+
+import user_model
 
 load_dotenv()
 
@@ -22,3 +26,4 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # OAuth2の設定
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+def create_user(db: Session=Depends(get_db))
