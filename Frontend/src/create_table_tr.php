@@ -39,7 +39,7 @@
     
             //今日の日付と比較する
             if($today->format("Y-m-d") <= $limit->format("Y-m-d")){
-                $limit_html.="あと".$date_diff->days."日";
+                $limit_html.="あと".($date_diff->days) + 1 ."日";
             } else if ($today->format("Y-m-d") > $limit->format("Y-m-d")){
                 $limit_html.="期限切れ";
             } else {
