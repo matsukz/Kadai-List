@@ -66,6 +66,10 @@ async def kadai_get_id(id, db: Session=Depends(get_db)):
 @app.post("/kadai/api/", response_model=KadaiCreate, tags=["APIエンドポイント"], summary="課題を新規作成します")
 async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   """日付は YYYY-MM-DDの形です!"""
+
+  if newkadai.limit_date < newkadai.start_date:
+    raise HTTPException(status_code=400, detail="Is the date setting accurate?")
+  
   #kadai_model参照
   create_kadai = Kadai(
     #idはオートインクリメント
