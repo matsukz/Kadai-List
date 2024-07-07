@@ -59,10 +59,11 @@ document.getElementById("kadai-form").addEventListener("submit", function(event)
     }).done(function(response){
 
         //日付を取得
-        var start_date = new Date(formData.get("kadai-start"));
         var limit_date = new Date(formData.get("kadai-limit"));
+        //今日の日付
+        const Today = new Date();
         //差分を計算（ミリ秒なので日に変換する）
-        var date_diff = parseInt(limit_date.getTime() - start_date.getTime()) / (1000 * 60 * 60 * 24);
+        var date_diff = parseInt((limit_date.getTime() - Today.getTime()) / (1000 * 60 * 60 * 24)) + 1;
         var limit_msg = "";
         if(date_diff >= 0){
             limit_msg = "あと" + date_diff + "日";
