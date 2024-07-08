@@ -3,13 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from typing import Optional
 
 from connect_db import engine, get_db
 from kadai_model import Kadai
 from createkadai_model import KadaiCreate
 from upd_processmodel import Process
+
 from auth.auth import create_user,authenticate_user,create_access_token
-from auth.auth import ACCESS_TOKEN_EXPIRE_MINUTES
+from auth.auth import authenticate_user, get_user, verify_password
+from auth.auth import get_current_user, get_current_user_api_key
+from auth.auth import ACCESS_TOKEN_EXPIRE_MINUTES,oauth2_scheme
+
 from auth.user_model import Users, UserCreate
 
 from datetime import datetime, timedelta
@@ -146,7 +151,31 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
   return {"message": msg}
 
 
-@app.post("/kadai/api/register", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
+@app.get("/kadai/api/auth/", tags=[tags_auth], summary="認証テストです")
+async def check_auth_root(token: str = Depends(oauth2_scheme), api_key: Optional[str] = None):
+  if api_key:
+    current_user = await get_current_user_api_key(api_key)
+  else:
+    current_user = await get_current_user(token)
+  return {"message": f"Hello, {current_user.username}!"}
+
+@app.post("/kadai/api/auth_token", response_model=dict, tags=[tags_auth], summary="APIキーで認証します")
+async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
+  user = db.query(Users).filter(Users.api_key == api_key).first()
+  if not user:
+    raise HTTPException(
+      status_code = 401,
+      detail = "Invalid API Key"
+    )
+  
+  access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+  access_token = create_access_token(
+    data={"sub": user.username},
+    expires_delta=access_token_expires
+  )
+  return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/kadai/api/auth/register", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
 async def register_user(user: UserCreate, db: Session=Depends(get_db)):
 
   db_user = db.query(Users).filter(Users.username == user.username).first()
@@ -156,7 +185,7 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
 
-@app.post("/kadai/api/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+@app.post("/kadai/api/auth/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
   user = authenticate_user(form_data.username, form_data.password, db)
   if not user:
