@@ -84,3 +84,12 @@ async def get_current_user(db: Session=Depends(get_db) ,token: str=Depends(oauth
     user = get_user(db, username=token_data.username)
     if user is None: raise credentials_exception
     return user
+
+async def get_current_user_api_key(api_key: str, db: Session=Depends(get_db)):
+    user = db.query(Users).filter(Users.api_key == api_key).first()
+    if user is None:
+        raise HTTPException(
+            status_code = 401,
+            datail = "Invalid API Key"
+        )
+    return user
