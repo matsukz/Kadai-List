@@ -43,9 +43,9 @@ def create_user(user: UserCreate, db: Session=Depends(get_db)):
     return db_user
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = dict.copy()
+    to_encode = dict.copy(data)
     if expires_delta:
-        expires = datetime.now(datetime.utc)  + expires_delta
+        expires = datetime.now(timezone.utc)  + expires_delta
     else:
         expires = datetime.now(timezone.utc) + timedelta(minutes=15)
     
