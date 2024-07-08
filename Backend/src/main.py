@@ -159,7 +159,7 @@ async def check_auth_root(token: str = Depends(oauth2_scheme), api_key: Optional
     current_user = await get_current_user(token)
   return {"message": f"Hello, {current_user.username}!"}
 
-@app.post("/kadai/api/auth_token", response_model=dict, tags=[tags_auth], summary="APIキーで認証します")
+@app.post("/kadai/api/auth_token/", response_model=dict, tags=[tags_auth], summary="APIキーで認証します")
 async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
   user = db.query(Users).filter(Users.api_key == api_key).first()
   if not user:
@@ -175,7 +175,7 @@ async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
   )
   return {"access_token": access_token, "token_type": "bearer"}
 
-@app.post("/kadai/api/auth/register", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
+@app.post("/kadai/api/auth/register/", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
 async def register_user(user: UserCreate, db: Session=Depends(get_db)):
 
   db_user = db.query(Users).filter(Users.username == user.username).first()
@@ -185,7 +185,7 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
 
-@app.post("/kadai/api/auth/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+@app.post("/kadai/api/auth/token/", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
   user = authenticate_user(form_data.username, form_data.password, db)
   if not user:
