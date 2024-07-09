@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends,  HTTPException
+from fastapi import FastAPI, Depends,  HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session, sessionmaker
@@ -152,14 +152,21 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
 
 
 @app.get("/kadai/api/auth/", tags=[tags_auth], summary="認証テストです")
-async def check_auth_root(token: str = Depends(oauth2_scheme), api_key: Optional[str] = None):
-  if api_key:
-    current_user = await get_current_user_api_key(api_key)
+async def check_auth_root(authorization: str = Header(None), db: Session=Depends(get_db)):
+  print(authorization)
+  if authorization is None:
+    raise HTTPException(
+            status_code=401,
+            detail="Authorization header missing",
+        )
+  elif authorization.startswith("Bearer "):
+    token = authorization[7:]
+    current_user = await get_current_user_api_key(token, db)
   else:
-    current_user = await get_current_user(token)
+    current_user = await get_current_user(authorization)
   return {"message": f"Hello, {current_user.username}!"}
 
-@app.post("/kadai/api/auth_token/", response_model=dict, tags=[tags_auth], summary="APIキーで認証します")
+@app.post("/kadai/api/auth/token/keys/", response_model=dict, tags=[tags_auth], summary="APIキーでトークンを発行します")
 async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
   user = db.query(Users).filter(Users.api_key == api_key).first()
   if not user:
@@ -185,7 +192,7 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
 
-@app.post("/kadai/api/auth/token/", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+@app.post("/kadai/api/auth/token/idpw/", response_model=dict, tags=[tags_auth], summary="ID/PWでトークンを発行します")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
   user = authenticate_user(form_data.username, form_data.password, db)
   if not user:
