@@ -90,6 +90,6 @@ async def get_current_user_api_key(api_key: str, db: Session=Depends(get_db)):
     if user is None:
         raise HTTPException(
             status_code = 401,
-            datail = "Invalid API Key"
+            detail = "Invalid API Key"
         )
     return user
