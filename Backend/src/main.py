@@ -152,18 +152,7 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
 
 
 @app.get("/kadai/api/auth/", tags=[tags_auth], summary="認証テストです")
-async def check_auth_root(authorization: str = Header(None), db: Session=Depends(get_db)):
-  print(authorization)
-  if authorization is None:
-    raise HTTPException(
-            status_code=401,
-            detail="Authorization header missing",
-        )
-  elif authorization.startswith("Bearer "):
-    token = authorization[7:]
-    current_user = await get_current_user_api_key(token, db)
-  else:
-    current_user = await get_current_user(authorization)
+async def check_auth_root(current_user: Users = Depends(get_current_user)):
   return {"message": f"Hello, {current_user.username}!"}
 
 @app.post("/kadai/api/auth/token/keys/", response_model=dict, tags=[tags_auth], summary="APIキーでトークンを発行します")
