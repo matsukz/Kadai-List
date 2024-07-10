@@ -27,7 +27,7 @@ if SECRET_KEY is None:
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # OAuth2の設定
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/kadai/api/auth/token")
 
 def create_user(user: UserCreate, db: Session=Depends(get_db)):
     hashed_password = pwd_context.hash(user.password)

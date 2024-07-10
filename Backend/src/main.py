@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends,  HTTPException, Header
+from fastapi import FastAPI, Depends,  HTTPException, Header, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session, sessionmaker
@@ -196,4 +196,35 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     expires_delta=access_token_expires
   )
 
+  return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/kadai/api/auth/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
+async def access_token_unification(
+  username: Optional[str] = Form(None),
+  password: Optional[str] = Form(None),
+  api_key: Optional[str] = Form(None),
+  db: Session = Depends(get_db)
+):
+  user = None
+  if username and password:
+    user = authenticate_user(username, password, db)
+  elif api_key:
+    user = get_current_user_api_key(api_key, db)
+  else:
+    raise HTTPException(
+      status_code=400,
+      detail="Must include either username/password or API key",
+    )
+  
+  if not user:
+    raise HTTPException(
+      status_code=401,
+      detail="Incorrect username/password or invalid API key",
+      headers={"WWW-Authenticate": "Bearer"}
+    )
+  
+  access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+  access_token = create_access_token(
+      data={"sub": user.username}, expires_delta=access_token_expires
+  )
   return {"access_token": access_token, "token_type": "bearer"}
