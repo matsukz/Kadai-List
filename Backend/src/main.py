@@ -153,7 +153,7 @@ def kadai_delete(id: int, db: Session=Depends(get_db)):
 
 @app.get("/kadai/api/auth/", tags=[tags_auth], summary="認証テストです")
 async def check_auth_root(current_user: Users = Depends(get_current_user)):
-  return {"message": f"Hello, {current_user.username}!"}
+  return {"user_id": current_user.user_id, "user_name": current_user.username}
 
 @app.post("/kadai/api/auth/token/keys/", response_model=dict, tags=[tags_auth], summary="APIキーでトークンを発行します")
 async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
