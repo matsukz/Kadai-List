@@ -85,7 +85,7 @@ async def get_current_user(db: Session=Depends(get_db) ,token: str=Depends(oauth
     if user is None: raise credentials_exception
     return user
 
-async def get_current_user_api_key(api_key: str, db: Session=Depends(get_db)):
+def get_current_user_api_key(api_key: str, db: Session=Depends(get_db)):
     user = db.query(Users).filter(Users.api_key == api_key).first()
     if user is None:
         raise HTTPException(
