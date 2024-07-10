@@ -153,11 +153,11 @@ def kadai_delete(id: int, db: Session=Depends(get_db), current_user: Users = Dep
   return {"message": msg}
 
 
-@app.get("/kadai/api/auth/", tags=[tags_auth], summary="認証テストです")
+@app.get("/kadai/api/auth", tags=[tags_auth], summary="認証テストです")
 async def check_auth_root(current_user: Users = Depends(get_current_user)):
   return {"user_id": current_user.user_id, "user_name": current_user.username}
 
-@app.post("/kadai/api/auth/register/", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
+@app.post("/kadai/api/auth/register", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
 async def register_user(user: UserCreate, db: Session=Depends(get_db)):
 
   db_user = db.query(Users).filter(Users.username == user.username).first()
