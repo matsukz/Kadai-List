@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import date
 
 class KadaiCreate(BaseModel):
+    id: int
     register_date: date
     start_date: date
     limit_date: date

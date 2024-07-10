@@ -3,7 +3,7 @@ from connect_db import Base
 
 class Kadai(Base):
     __tablename__ = "kadai"
-    id = Column(BigInteger, index=True)
+    id = Column(Integer, index=True, primary_key=True)
     register_date = Column(Date)
     start_date = Column(Date)
     limit_date = Column(Date)
@@ -12,5 +12,5 @@ class Kadai(Base):
     content = Column(String(length=100, collation='utf8mb3_general_ci'))
     note = Column(String(length=100, collation='utf8mb3_general_ci'))
     status = Column(Boolean)
-    user_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, index=True)
     
