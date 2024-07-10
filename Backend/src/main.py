@@ -92,7 +92,8 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
     title = newkadai.title,
     content = newkadai.content,
     note = newkadai.note,
-    status = newkadai.status
+    status = newkadai.status,
+    user_id = newkadai.user_id
   )
 
   db.add(create_kadai) #DB追加
@@ -115,7 +116,8 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   kadai_upd.title = kadai.title,
   kadai_upd.content = kadai.content,
   kadai_upd.note = kadai.note,
-  kadai_upd.status = kadai.status
+  kadai_upd.status = kadai.status,
+  kadai_upd.user_id = kadai.user_id
 
   db.commit()
   db.refresh(kadai_upd)
