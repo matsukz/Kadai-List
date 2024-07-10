@@ -157,22 +157,6 @@ def kadai_delete(id: int, db: Session=Depends(get_db), current_user: Users = Dep
 async def check_auth_root(current_user: Users = Depends(get_current_user)):
   return {"user_id": current_user.user_id, "user_name": current_user.username}
 
-@app.post("/kadai/api/auth/token/keys/", response_model=dict, tags=[tags_auth], summary="APIキーでトークンを発行します")
-async def login_token_api_key(api_key: str, db: Session=Depends(get_db)):
-  user = db.query(Users).filter(Users.api_key == api_key).first()
-  if not user:
-    raise HTTPException(
-      status_code = 401,
-      detail = "Invalid API Key"
-    )
-  
-  access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-  access_token = create_access_token(
-    data={"sub": user.username},
-    expires_delta=access_token_expires
-  )
-  return {"access_token": access_token, "token_type": "bearer"}
-
 @app.post("/kadai/api/auth/register/", response_model=dict, tags=[tags_auth], summary="ユーザーを作成するAPIです")
 async def register_user(user: UserCreate, db: Session=Depends(get_db)):
 
@@ -182,23 +166,6 @@ async def register_user(user: UserCreate, db: Session=Depends(get_db)):
   
   user = create_user(user,db)
   return {"username": user.username, "api_key": user.api_key}
-
-@app.post("/kadai/api/auth/token/idpw/", response_model=dict, tags=[tags_auth], summary="ID/PWでトークンを発行します")
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session=Depends(get_db)):
-  user = authenticate_user(form_data.username, form_data.password, db)
-  if not user:
-    raise HTTPException(
-      status_code = 401,
-      detail="Incorrect username or password",
-      headers={"WWW-Authenticate": "Bearer"}
-    )
-  access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-  access_token = create_access_token(
-    data={"sub":user.username},
-    expires_delta=access_token_expires
-  )
-
-  return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/kadai/api/auth/token", response_model=dict, tags=[tags_auth], summary="トークンを発行します")
 async def access_token_unification(
