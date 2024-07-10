@@ -53,30 +53,30 @@ async def shutdown():
   pass
 
 @app.get("/kadai/api/", tags=[tags_kadai], summary="すべての課題を取得します")
-async def kadai_getall(db: Session=Depends(get_db)):
-  kadai = db.query(Kadai).all()
+async def kadai_getall(current_user: Users = Depends(get_current_user), db: Session=Depends(get_db)):
+  kadai = db.query(Kadai).filter(Kadai.user_id == current_user.user_id).all()
   return kadai
 
-@app.get("/kadai/api/filter", tags=[tags_kadai], summary="提出状況で絞り込みます")
-async def kadai_getfilter(status: bool, db: Session=Depends(get_db)):
+@app.get("/kadai/api/filter/", tags=[tags_kadai], summary="提出状況で絞り込みます")
+async def kadai_getfilter(status: bool, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
   kadai_status:bool ; kadai_status = status
-  kadai = db.query(Kadai).filter(Kadai.status == kadai_status).all()
+  kadai = db.query(Kadai).filter(Kadai.status == kadai_status, Kadai.user_id == current_user.user_id).all()
   if kadai == []:
     raise HTTPException(status_code=404, detail="Kadai not found")
   else:
     return kadai
 
 @app.get("/kadai/api/{id}", tags=[tags_kadai], summary="IDに応じた課題を取得します")
-async def kadai_get_id(id, db: Session=Depends(get_db)):
+async def kadai_get_id(id, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
 
-  kadai = db.query(Kadai).filter(Kadai.id == id).all()
+  kadai = db.query(Kadai).filter(Kadai.kadai_id == id, Kadai.user_id == current_user.user_id).all()
   if kadai == []:
     raise HTTPException(status_code=404, detail="Kadai not found")
   else:
     return kadai
 
 @app.post("/kadai/api/", response_model=KadaiCreate, tags=[tags_kadai], summary="課題を新規作成します")
-async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
+async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
   """日付は YYYY-MM-DDの形です!"""
 
   if newkadai.limit_date < newkadai.start_date:
@@ -93,7 +93,7 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
     content = newkadai.content,
     note = newkadai.note,
     status = newkadai.status,
-    user_id = newkadai.user_id
+    user_id = current_user.user_id
   )
 
   db.add(create_kadai) #DB追加
@@ -102,9 +102,9 @@ async def kadai_create(newkadai: KadaiCreate, db: Session=Depends(get_db)):
   return create_kadai
 
 @app.put("/kadai/api/{id}", response_model=KadaiCreate,tags=[tags_kadai], summary="IDに応じた課題を編集します")
-async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
+async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
 
-  kadai_upd = db.query(Kadai).filter(Kadai.id == id).first()
+  kadai_upd = db.query(Kadai).filter(Kadai.kadai_id == id, Kadai.user_id == current_user.user_id).first()
 
   if kadai_upd is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
@@ -124,9 +124,9 @@ async def kadai_update(id: int, kadai:KadaiCreate, db: Session=Depends(get_db)):
   return kadai_upd
 
 @app.put("/kadai/api/process/{id}", response_model=Process, tags=[tags_kadai], summary="IDに応じた課題の完了フラグを変える")
-async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_db)):
+async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
 
-  kadai_upd_pros = db.query(Kadai).filter(Kadai.id == id).first()
+  kadai_upd_pros = db.query(Kadai).filter(Kadai.kadai_id == id, Kadai.user_id == current_user.user_id).first()
 
   if kadai_upd_pros is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
@@ -138,9 +138,9 @@ async def kadai_process_update(id: int, kadai:Process, db: Session=Depends(get_d
   return kadai_upd_pros
 
 @app.delete("/kadai/api/{id}", response_model=dict, tags=[tags_kadai], summary="IDに応じた課題を削除します")
-def kadai_delete(id: int, db: Session=Depends(get_db)):
+def kadai_delete(id: int, db: Session=Depends(get_db), current_user: Users = Depends(get_current_user)):
 
-  kadai_del = db.query(Kadai).filter(Kadai.id == id).first()
+  kadai_del = db.query(Kadai).filter(Kadai.kadai_id == id, Kadai.user_id == current_user.user_id).first()
 
   if kadai_del is None:
     raise HTTPException(status_code=404, detail="Kadai not found")
