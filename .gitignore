@@ -163,3 +163,4 @@ compose.env
 mysql/data/*
 Frontend/frontend.env
 Frontend/src/js/environment.js
+requ.py
