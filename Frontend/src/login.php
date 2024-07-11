@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
-                        <button type="submit" class="btn btn-primary" id="Register">登録</button>
+                        <button type="submit" class="btn btn-primary" id="Register">ログイン</button>
                     </div>
                 </form>
 
