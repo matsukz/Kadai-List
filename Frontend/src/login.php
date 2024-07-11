@@ -17,27 +17,30 @@
         <div class="d-flex justify-content-center">
             <div class="col-10 col-mb-12">
 
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">ID</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="login_user_id" name="login_user_id" required>
+                <form id="login">
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="login_user_id" name="login_user_id" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-3 row">
-                    <label class="col-sm-2 col-form-label">PassWord</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="login_user_password" name="login_user_password" required>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">PassWord</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="login_user_password" name="login_user_password" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="d-grid gap-2 col-6 mx-auto d-md-block">
-                    <button class="btn btn-primary" type="button" id="login_user_btn">ログイン</button>
-                </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button type="submit" class="btn btn-primary" id="Register">登録</button>
+                    </div>
+                </form>
 
             </div>
         </div>
 
+        <script src="js/login.js" type="module"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </body>
 </html>
