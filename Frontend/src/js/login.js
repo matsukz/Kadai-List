@@ -36,11 +36,8 @@ document.getElementById("login").addEventListener("submit", function(event){
         cache: false
     }).done(function(response){
         alert("OK");
-        // const AccessToken = response.access_token;
-        // $.post(
-        //     "index.php", {token: AccessToken}, function() {
-        //         window.location.href = "index.php";
-        //     });
+        const AccessToken = JSON.parse(response);
+        console.log(Object.prototype.toString.call(JSON.parse(AccessToken)));
     }).fail(function(jqXHR, textStatus) {
         console.log("Login failed: " + jqXHR.responseText)
         alert("ログインに失敗しました");
