@@ -14,15 +14,25 @@ document.getElementById("login").addEventListener("submit", function(event){
         return
     }
 
+    //ヘッダ
+    const login_header = {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    //POSTデータ
+    const login_data = {
+        username: login_id,
+        password: login_password,
+        api_key: ""
+    }
+
     $.ajax({
-        type: "POST",
+        method: "POST",
         url: api_point + "auth/token",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {"username": login_id, "password": login_password},
-        dataType: "josn",
+        headers: login_header,
+        data: login_data,
+        dataType: "text",
         cache: false
     }).done(function(response){
         alert("OK");
