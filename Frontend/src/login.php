@@ -1,3 +1,10 @@
+<?php
+    if($_SERVER["REQUEST_METHOD"] = "GET"){
+
+    } else {
+        
+    }
+?>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -17,7 +24,7 @@
         <div class="d-flex justify-content-center">
             <div class="col-10 col-mb-12">
 
-                <form id="login">
+                <form id="login" action="">
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">ID</label>
                         <div class="col-sm-10">
