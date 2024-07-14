@@ -31,13 +31,13 @@ document.getElementById("login").addEventListener("submit", function(event){
         method: "POST",
         url: api_point + "auth/token",
         headers: login_header,
-        data: login_data,
-        dataType: "text",
+        data: $.param(login_data),
+        dataType: "json",
         cache: false
     }).done(function(response){
         alert("OK");
-        const AccessToken = JSON.parse(response);
-        console.log(Object.prototype.toString.call(JSON.parse(AccessToken)));
+        let AccessToken = JSON.stringify(response);
+        console.log(AccessToken)
     }).fail(function(jqXHR, textStatus) {
         console.log("Login failed: " + jqXHR.responseText)
         alert("ログインに失敗しました");
