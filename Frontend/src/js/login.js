@@ -35,9 +35,10 @@ document.getElementById("login").addEventListener("submit", function(event){
         dataType: "json",
         cache: false
     }).done(function(response){
-        alert("OK");
-        let AccessToken = JSON.stringify(response);
-        console.log(AccessToken)
+        alert("ログインを確認しました");
+        let AccessToken = response.access_token;
+        sessionStorage.setItem("jwt", AccessToken);
+        window.location.href = "index.php";
     }).fail(function(jqXHR, textStatus) {
         console.log("Login failed: " + jqXHR.responseText)
         alert("ログインに失敗しました");
