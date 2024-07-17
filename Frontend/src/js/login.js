@@ -30,6 +30,7 @@ document.getElementById("login").addEventListener("submit", function(event){
         cache: false
     }).done(function(response){
         alert("ログインを確認しました");
+        window.location.href = "index.php";
     }).fail(function(jqXHR, textStatus, errorThrown) {
         var console_msg = "";
         var login_alert = "";
