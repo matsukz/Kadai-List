@@ -29,14 +29,20 @@
 
     if($http_code == 200){
         try{
+            //トークンの取得
             $response_json = json_decode($response,true);
             $token = $response_json["access_token"];
-            //ini_set("session.gc_maxlifetime", 1440);
-            return http_response_code(200);         
+            
+            ini_set("session.gc_maxlifetime", 1800); //Session変数有効時間のセット
+            session_start();
+            $_SESSION = array(); //Session変数のクリア
+            $_SESSION['access_token'] = $token; //Sessionのセット
+            return http_response_code(200); //セットできたら終了する
         } catch (Exception $ex) {
             return http_response_code(502);
         }
     } else {
         return http_response_code($http_code);
     }
+    exit();
 ?>
