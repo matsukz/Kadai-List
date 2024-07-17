@@ -32,11 +32,11 @@
             $response_json = json_decode($response,true);
             $token = $response_json["access_token"];
             //ini_set("session.gc_maxlifetime", 1440);
-            var_dump($token);            
+            return http_response_code(200);         
         } catch (Exception $ex) {
             return http_response_code(502);
         }
     } else {
-        return http_response_code(504);
+        return http_response_code($http_code);
     }
 ?>
