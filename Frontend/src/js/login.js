@@ -38,8 +38,12 @@ document.getElementById("login").addEventListener("submit", function(event){
                 console_msg = "Unauthorized(401)";
                 login_alert = "IDまたはパスワードが違います";
                 break;
+            case 502:
+                console_msg = "Internal Server Error(503)";
+                login_alert = "セッションの開始に失敗しました";
+                break;
             case 503:
-                console_msg = "Internal Server Error(500)";
+                console_msg = "Internal Server Error(503)";
                 login_alert = "ログインサーバーにアクセスできません";
                 break;
             default:
