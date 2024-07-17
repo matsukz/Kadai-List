@@ -14,12 +14,6 @@ document.getElementById("login").addEventListener("submit", function(event){
         return
     }
 
-    //ヘッダ
-    const login_header = {
-        "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
-
     //POSTデータ
     const login_data = {
         username: login_id,
@@ -29,19 +23,32 @@ document.getElementById("login").addEventListener("submit", function(event){
 
     $.ajax({
         method: "POST",
-        url: api_point + "auth/token",
-        headers: login_header,
+        url: "login_script.php",
         data: $.param(login_data),
-        dataType: "json",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType: "text",
         cache: false
     }).done(function(response){
         alert("ログインを確認しました");
-        let AccessToken = response.access_token;
-        sessionStorage.setItem("jwt", AccessToken);
-        window.location.href = "index.php";
-    }).fail(function(jqXHR, textStatus) {
-        console.log("Login failed: " + jqXHR.responseText)
-        alert("ログインに失敗しました");
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        var console_msg = "";
+        var login_alert = "";
+        switch (jqXHR.status) {
+            case 401:
+                console_msg = "Unauthorized(401)";
+                login_alert = "IDまたはパスワードが違います";
+                break;
+            case 503:
+                console_msg = "Internal Server Error(500)";
+                login_alert = "ログインサーバーにアクセスできません";
+                break;
+            default:
+                console_msg = "Other Errors";
+                login_alert = "不明なエラーが発生しました " + jqXHR.status;
+                break;
+        }
+        console.log("Login: " + console_msg);
+        alert(login_alert);
     }).always(function(){
         $("#Register").prop("disabled", false);
         $("#Register").text("ログイン");
